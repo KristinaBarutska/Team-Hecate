@@ -4,3 +4,9 @@ C:\Users\desi\Documents\Visual Studio 2015\Projects\HecateMillionaire\HecateMill
 C:\Users\desi\Documents\Visual Studio 2015\Projects\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.csprojResolveAssemblyReference.cache
 C:\Users\desi\Documents\Visual Studio 2015\Projects\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
 C:\Users\desi\Documents\Visual Studio 2015\Projects\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe.config
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.pdb
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.csprojResolveAssemblyReference.cache

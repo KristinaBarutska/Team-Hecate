@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTable\TableBoard.cs" />
     <Compile Include="Common\Console\ConsoleConstantscs.cs" />
     <Compile Include="Common\GlobalErrorMessages.cs" />
+    <Compile Include="Common\WordsColor.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="FiftyFifty.cs" />
     <Compile Include="Joker.cs" />
