@@ -1,6 +1,7 @@
 ﻿namespace HecateMillionaire.Players.Contracts
 {
     using Common;
+    using Jokers;
 
     public interface IPlayer
     {
@@ -8,8 +9,11 @@
 
         WordsColor Color { get; }
 
-        decimal Score { get; }
-        
+        int Score { get; }
 
+        int StopGameAndTakeMoney();
+        void SelectJoker(JokerType jokerType);
+        void LoseGame();
+        void WinGame();
     }
 }
