@@ -50,7 +50,11 @@
     <Compile Include="Common\WordsColor.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="FiftyFifty.cs" />
-    <Compile Include="Joker.cs" />
+    <Compile Include="Joker\CallFriendJoker.cs" />
+    <Compile Include="Joker\FiftyFiftyJoker.cs" />
+    <Compile Include="Joker\HelpFromPublicJoker.cs" />
+    <Compile Include="Joker\Joker.cs" />
+    <Compile Include="Joker\JokerType.cs" />
     <Compile Include="MainHecate.cs" />
     <Compile Include="Players\Contracts\IPlayer.cs" />
     <Compile Include="Players\Player.cs" />

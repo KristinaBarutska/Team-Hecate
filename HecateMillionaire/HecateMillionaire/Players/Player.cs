@@ -6,6 +6,9 @@
 
     class Player : IPlayer
     {
+        private string name;
+        private int scores;
+
         public Player(string name, int WordsColor, decimal score)
         {
             Name = name;
@@ -73,7 +76,12 @@
 
         public override string ToString()
         {
-            return 
+            return; 
         }
+
+        //public override string ToString()
+        //{
+        //    return String.Format("Player : {0} - {1} lv", this.name, this.scores);
+        //}
     }
 }

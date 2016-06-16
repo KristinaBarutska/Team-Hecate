@@ -13,3 +13,7 @@ C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe.config
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe.config
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.csprojResolveAssemblyReference.cache
