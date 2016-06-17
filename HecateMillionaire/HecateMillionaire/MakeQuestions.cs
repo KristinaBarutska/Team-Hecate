@@ -8,6 +8,7 @@ namespace Hecate
 {
     class MakeQuestions
     {
+        //Стара концепция. Не се ползва, но нека остане, за всеки случай.
         public Question[] questColection =
                 {
                 new Question("Къде е роден Тодор Живков?", "Варна", "Правец", "Москва", "Истамбул","B"),
