@@ -12,6 +12,8 @@
         static void Main()
         {
             // ToDo: Get player name 
+            System.Console.OutputEncoding = Encoding.UTF8;
+            
             System.Console.Title = "Hey";
             System.Console.BackgroundColor = ConsoleColor.DarkRed;
             System.Console.SetCursorPosition(60,0);
@@ -22,10 +24,10 @@
             string filename = @"..\..\questions.txt";
             List<Question> questions = InitializeQuestions(filename);
 
-            //foreach (var question in questions)
-            //{
-            //    System.Console.WriteLine(question);
-            //}
+            foreach (var question in questions)
+            {
+                System.Console.WriteLine(question);
+            }
         }
 
         public static List<Question> InitializeQuestions(string file)

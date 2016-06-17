@@ -4,7 +4,6 @@
     using System;
     using Common;
     using Jokers;
-    using WordsColor;
 
     class Player : IPlayer
     {
@@ -16,7 +15,7 @@
         {
             this.Name = name;
             this.WordsColor = wordsColor;
-            this.Scores = 0;
+            this.Score = 0;
         }
 
         public string Name
@@ -38,24 +37,7 @@
             }
         }
 
-        public int WordsColor
-        {
-            get
-            {
-                return this.wordsColor;                
-            }
-
-            private set
-            {
-                if (value < 1 && value >= 4)
-                {
-                    throw new ArgumentException("Sorry, you can try only between 3 colors.");
-                }
-                this.wordsColor = value;
-            }
-        }
-
-        public int Scores
+        public int Score
         {
             get
             {
@@ -74,6 +56,23 @@
             }
         }
 
+        public int WordsColor
+        {
+            get
+            {
+                return this.wordsColor;                
+            }
+
+            private set
+            {
+                if (value < 1 && value >= 4)
+                {
+                    throw new ArgumentException("Sorry, you can try only between 3 colors.");
+                }
+                this.wordsColor = value;
+            }
+        }
+
         public override string ToString()
         {
             return String.Format("Player : {0} - {1} lv", this.name, this.scores);
@@ -84,7 +83,7 @@
         //the player give up - take the money earned in the game
         public int StopGameAndTakeMoney()
         {
-            return this.Scores;
+            return this.Score;
         }
 
         //TODO choose a joker type and call his method UseJoker()
@@ -121,9 +120,9 @@
 
         public void GameOver()
         {
-            if (this.Scores != 0)
+            if (this.Score != 0)
             {
-                SaveInFile.SetFileRekord(this.Scores, this.Name); //save record and name in file when game over 
+                SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
             }
         }
 

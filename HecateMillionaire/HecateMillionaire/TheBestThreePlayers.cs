@@ -52,7 +52,7 @@
             }
             //
 
-            Console.WriteLine("Standing:");
+            System.Console.WriteLine("Standing:");
 
             //Print only three record
             for (int i = 0; i < records.Length; i++)
@@ -61,7 +61,8 @@
                 {
                     if (i < 3)
                     {
-                        Console.WriteLine(i + 1 + " -> " + records[i]);
+                        System.Console.WriteLine(i + 1 + " -> " + records[i]);
+
                     }
                     else
                     {
@@ -72,16 +73,16 @@
             //
 
             //Print player position
-            Console.WriteLine("\nYour position is: ");
+            System.Console.WriteLine("\nYour position is: ");
 
             for (int i = 0; i < records.Length; i++)
             {
                 var currnet = records[i].Split(' ');
                 if (nameOfPlayer == currnet[2])
                 {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine(i + 1 + " -> " + records[i]);
-                    Console.BackgroundColor = ConsoleColor.Black;
+                    System.Console.BackgroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine(i + 1 + " -> " + records[i]);
+                    System.Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 }
             }
