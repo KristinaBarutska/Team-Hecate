@@ -8,6 +8,7 @@
 
     class Question
     {
+    
 		//used for method public static List<Question> InitializeQuestions
 		
 	private string[] answers;
