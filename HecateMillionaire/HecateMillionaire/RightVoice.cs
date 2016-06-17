@@ -8,6 +8,10 @@
 
     class RightVoice
     {
-        //ToDo: 
+        //ToDo: make some music like
+        //for (int i = 0; i< 4; i++)
+        //  {
+        //      Console.Beep((i + 20) / 2 * 150, 150);
+        //  }
     }
 }

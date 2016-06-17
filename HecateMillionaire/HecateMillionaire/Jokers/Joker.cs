@@ -1,8 +1,5 @@
-﻿namespace HecateMillionaire
+﻿namespace HecateMillionaire.Jokers
 {
-    using System;
-    using HecateMillionaire.Jokers;
-
     //abstract class Joker - base class for the other jokers 
     abstract class Joker
     {

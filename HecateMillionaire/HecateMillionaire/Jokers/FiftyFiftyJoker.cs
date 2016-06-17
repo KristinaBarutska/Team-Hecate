@@ -1,4 +1,4 @@
-﻿namespace HecateMillionaire
+﻿namespace HecateMillionaire.Jokers
 {
     class FiftyFiftyJoker : Joker
     {

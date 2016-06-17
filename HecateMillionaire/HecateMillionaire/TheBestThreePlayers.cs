@@ -1,9 +1,8 @@
 ﻿namespace HecateMillionaire
 {
+    using Common.Console;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using WorkWithFile;
 
     public static class TheBestThreePlayers
     {
@@ -52,16 +51,16 @@
             }
             //
 
-            System.Console.WriteLine("Standing:");
+            Console.WriteLine(ConsoleConstants.StandingMessage);
 
             //Print only three record
             for (int i = 0; i < records.Length; i++)
             {
                 if (records[i] != null)
                 {
-                    if (i < 3)
+                    if (i < ConsoleConstants.BestThreePlayers)
                     {
-                        System.Console.WriteLine(i + 1 + " -> " + records[i]);
+                        Console.WriteLine(i + 1 + " -> " + records[i]);
 
                     }
                     else
@@ -73,21 +72,20 @@
             //
 
             //Print player position
-            System.Console.WriteLine("\nYour position is: ");
+            Console.WriteLine(ConsoleConstants.PositionMessage);
 
             for (int i = 0; i < records.Length; i++)
             {
                 var currnet = records[i].Split(' ');
                 if (nameOfPlayer == currnet[2])
                 {
-                    System.Console.BackgroundColor = ConsoleColor.Red;
-                    System.Console.WriteLine(i + 1 + " -> " + records[i]);
-                    System.Console.BackgroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine(i + 1 + " -> " + records[i]);
+                    Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 }
             }
             //
-
         }
     }
 }

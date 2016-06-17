@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-
-namespace HecateMillionaire
+﻿namespace HecateMillionaire.WorkWithFile
 {
+    using System;
+    using System.IO;
+
     public static class ReadFromFile
     {
         public static string[] GetFileRecord() //Load on record

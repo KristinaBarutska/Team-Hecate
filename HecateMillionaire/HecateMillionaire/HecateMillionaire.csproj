@@ -45,21 +45,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTable\TableBoard.cs" />
-    <Compile Include="Common\Console\ConsoleConstantscs.cs" />
+    <Compile Include="Common\Console\ConsoleConstants.cs" />
     <Compile Include="Common\GlobalErrorMessages.cs" />
     <Compile Include="Common\WordsColor.cs" />
-    <Compile Include="Display.cs" />
-    <Compile Include="FiftyFifty.cs" />
-    <Compile Include="Joker\CallFriendJoker.cs" />
-    <Compile Include="Joker\FiftyFiftyJoker.cs" />
-    <Compile Include="Joker\HelpFromPublicJoker.cs" />
-    <Compile Include="Joker\Joker.cs" />
-    <Compile Include="Joker\JokerType.cs" />
+    <Compile Include="BaseTable\DisplayTime.cs" />
+    <Compile Include="Jokers\CallFriendJoker.cs" />
+    <Compile Include="Jokers\FiftyFiftyJoker.cs" />
+    <Compile Include="Jokers\HelpFromPublicJoker.cs" />
+    <Compile Include="Jokers\Joker.cs" />
+    <Compile Include="Jokers\JokerType.cs" />
     <Compile Include="MainHecate.cs" />
     <Compile Include="Players\Contracts\IPlayer.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question.cs" />
+    <Compile Include="Questions\Question.cs" />
     <Compile Include="WorkWithFile\ReadFromFile.cs" />
     <Compile Include="RightVoice.cs" />
     <Compile Include="WorkWithFile\SaveInFile.cs" />

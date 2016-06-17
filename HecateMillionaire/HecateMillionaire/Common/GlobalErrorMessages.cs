@@ -1,13 +1,11 @@
 ﻿namespace HecateMillionaire.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    class GlobalErrorMessages
+    public class GlobalErrorMessages
     {
-        // error messages if Fifty-fifthy and Joker are invoked for second time
-    }
+        public const string InvalidPlayerNameErrorMessage = "Name must be greather than 4 symbols!";
+        public const string InvalidScoreErrorMessage = "Invalid score.Scores can't be negative!";
+        public const string InvalidWordsColorChoiceErrorMessage = "Sorry, you can try only between 3 colors!";
+        public const string InvalidJokerErrorMessage = "Invalid joker type!";
+        public const string SecondTimeJokerErrorMessage = "You already used this joker!";
+     }
 }

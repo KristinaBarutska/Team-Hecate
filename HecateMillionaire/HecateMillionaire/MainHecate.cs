@@ -1,11 +1,11 @@
 ﻿namespace HecateMillionaire
 {
+    using Common.Console;
+    using Questions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
-    using System.IO;
 
     class MainHecate
     {
@@ -13,13 +13,7 @@
         {
             // ToDo: Get player name 
             System.Console.OutputEncoding = Encoding.UTF8;
-            
-            System.Console.Title = "Hey";
-            System.Console.BackgroundColor = ConsoleColor.DarkRed;
-            System.Console.SetCursorPosition(60,0);
-            System.Console.WriteLine("Enter your choice! =>>");
-            System.Console.ForegroundColor = ConsoleColor.Cyan;
-
+          
             //initialize questions
             string filename = @"..\..\questions.txt";
             List<Question> questions = InitializeQuestions(filename);
@@ -32,11 +26,11 @@
                 IsRight check = new IsRight(questions[i], answer);
                 if (check.Tell())
                 {
-                    System.Console.WriteLine("Your answer is true");
+                    System.Console.WriteLine(ConsoleConstants.RightAnswerMessage);
                 }
                 else
                 {
-                    System.Console.WriteLine("You are wrong");
+                    System.Console.WriteLine(ConsoleConstants.WrongAnswerMessage);
                 }
                 //ToDo Add 100 scores if the answaer is right
             }

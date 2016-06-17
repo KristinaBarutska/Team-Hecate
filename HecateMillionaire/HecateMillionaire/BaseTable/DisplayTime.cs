@@ -1,4 +1,4 @@
-﻿namespace HecateMillionaire
+﻿namespace HecateMillionaire.BaseTable
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class Display
+    class DisplayTime
     {
         //ToDo: print the remaning time
     }

@@ -4,6 +4,7 @@
     using System;
     using Common;
     using Jokers;
+    using WorkWithFile;
 
     class Player : IPlayer
     {
@@ -28,7 +29,7 @@
             {
                 if (Name.Length < 4)
                 {
-                    throw new ArgumentException("Name must be greather than 4 symbols!");
+                    throw new ArgumentException(GlobalErrorMessages.InvalidPlayerNameErrorMessage);
                 }
                 else
                 {
@@ -47,7 +48,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Invalid scores.Scores can't be negative.");
+                    throw new ArgumentException(GlobalErrorMessages.InvalidScoreErrorMessage);
                 }
                 else
                 {
@@ -60,14 +61,14 @@
         {
             get
             {
-                return this.wordsColor;                
+                return this.wordsColor;
             }
 
             private set
             {
                 if (value < 1 && value >= 4)
                 {
-                    throw new ArgumentException("Sorry, you can try only between 3 colors.");
+                    throw new ArgumentException(GlobalErrorMessages.InvalidWordsColorChoiceErrorMessage);
                 }
                 this.wordsColor = value;
             }
@@ -104,7 +105,7 @@
                     joker = new CallFriendJoker();
                     break;
                 default:
-                    throw new ArgumentException("Invalid joker type");
+                    throw new ArgumentException(GlobalErrorMessages.InvalidJokerErrorMessage);
             }
 
             if (!joker.IsUsed)
@@ -113,7 +114,7 @@
             }
             else
             {
-                throw new ArgumentException("You already used this joker");
+                throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
             }
 
         }
