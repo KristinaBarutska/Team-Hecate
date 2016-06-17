@@ -4,6 +4,7 @@
     using System;
     using Common;
     using Jokers;
+    using WordsColor;
 
     class Player : IPlayer
     {
@@ -11,11 +12,11 @@
         private int scores;
         private int wordsColor;
 
-        public Player(string name, int WordsColor, int scores)
+        public Player(string name, int wordsColor)
         {
-            Name = name;
-            this.WordsColor = WordsColor;
-            this.Scores = scores;
+            this.Name = name;
+            this.WordsColor = wordsColor;
+            this.Scores = 0;
         }
 
         public string Name
@@ -118,30 +119,21 @@
 
         }
 
-        public void LoseGame()
+        public void GameOver()
         {
-            this.Scores = 0;
-        }
-
-        public void WinGame()
-        {
-            //save player's scores in the file
+            if (this.Scores != 0)
+            {
+                SaveInFile.SetFileRekord(this.Scores, this.Name); //save record and name in file when game over 
+            }
         }
 
         WordsColor IPlayer.Color
         {
             get
             {
-                throw new NotImplementedException();
+                return (WordsColor)WordsColor; //cast int to color enum and return color
             }
         }
 
-        int IPlayer.Score
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }
