@@ -24,10 +24,24 @@
             string filename = @"..\..\questions.txt";
             List<Question> questions = InitializeQuestions(filename);
 
-            foreach (var question in questions)
-            {
-                System.Console.WriteLine(question);
+            //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
+            for (int i=0;i<questios.Count;i++)
+            
+                System.Console.WriteLine(questions[i]);
+                char answer= Char.Parse(System.Console.ReadLine());
+                IsRight check = new IsRight(questions[i], answer);
+                if (check.Tell())
+                {
+                    System.Console.WriteLine("Your answer is true");
+                }
+                else
+                {
+                    System.Console.WriteLine("You are wrong");
+                }
+                //ToDo Add 100 scores if the answaer is right
             }
+        }
+        //Край на промените на Кристина
         }
 
         public static List<Question> InitializeQuestions(string file)
