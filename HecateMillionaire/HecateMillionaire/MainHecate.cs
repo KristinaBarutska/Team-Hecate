@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.IO;
 
     class MainHecate
     {
@@ -19,24 +20,24 @@
             List<Question> questions = InitializeQuestions(filename);
 
             //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
-            for (int i=0;i<questios.Count;i++)
+            for (int i=0;i<questions.Count;i++)
+            {
             
                 System.Console.WriteLine(questions[i]);
-                char answer= Char.Parse(System.Console.ReadLine());
-                IsRight check = new IsRight(questions[i], answer);
-                if (check.Tell())
-                {
-                    System.Console.WriteLine(ConsoleConstants.RightAnswerMessage);
-                }
-                else
-                {
-                    System.Console.WriteLine(ConsoleConstants.WrongAnswerMessage);
-                }
+                //char answer= Char.Parse(System.Console.ReadLine());
+                //IsRight check = new IsRight(questions[i], answer);
+                //if (check.Tell())
+                //{
+                //    System.Console.WriteLine(ConsoleConstants.RightAnswerMessage);
+                //}
+                //else
+                //{
+                //    System.Console.WriteLine(ConsoleConstants.WrongAnswerMessage);
+                //}
                 //ToDo Add 100 scores if the answaer is right
             }
         }
         //Край на промените на Кристина
-        }
 
         public static List<Question> InitializeQuestions(string file)
         {
@@ -73,5 +74,6 @@
             }
             return questionsList;
         }
+        
     }
 }

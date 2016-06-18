@@ -20,3 +20,9 @@ D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\Team-Hecate\HecateMillionai
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.csprojResolveAssemblyReference.cache
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.pdb
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\PROJECT\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe.config
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\PROJECT\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\PROJECT\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.csprojResolveAssemblyReference.cache
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\PROJECT\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\PROJECT\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.pdb
+D:\COURSES\Telerik Academy\2016-2017\C# OOP\Teamwork\PROJECT\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
