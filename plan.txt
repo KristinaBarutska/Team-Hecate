@@ -1,0 +1,83 @@
+
+Person - abstract class
+name
+
+Player : Person
+name 
+scores 
+color
+implemnts IPlayer, IComparable<Player>
+
+IPlayer interface
+
+Friend : Person
+name
+respond()
+
+Joker - abstract class
+JokerType
+
+CallFriendJoker : Joker
+
+FiftyFiftyJoker : Joker
+
+HelpFromPublicJoker : Joker
+
+
+Game - tuk sa vsichkite metodi za igrata - initialize, start, game over, restart
+implements <IGame>
+
+IGame - interface
+
+
+ReadWrite
+
+----------------------------------
+Question - abstract ?
+text
+string[] answers
+indexRightQuestion
+score
+
+EasyQuestion : Question
+score = 100
+nqma Jokeri - zaklucheni sa
+time =30s
+
+MediumQuestion : : EasyQuestion
+score = 500
+edin Joker
+time = 1min
+unlockJokers() - imame obsho 3 razlichni, no moje da polzvame samo 1 joker na vypros
+
+
+HardQuestions : MediumQuestion
+score = 1000;
+2 vyzmojni Jokers
+time = 2min
+unlockJokers() - imame obsho 3 razlichni i moje da polzvame kolkoto iskame za vypros
+skipQuestionBonus() - vyzmojnost da propusne vypros ako ne znae otgovora 
+
+---------------------------------
+
+
+ostavat / predlojenia
+
+- pravila na igrata - koga shte e game over - kogato sbyrka na edin vypros li? i koga she byde pobeditel ? 
+- mojem da dobavim proverka dali resultata mu e po-golqm ot veche postignatite do momenta i da mu izpisva dali e postavil record
+
+- 3 niva na nasledvqane - s Questions moje bi
+- oshte 2 interfeisa
+- struct - Color (RGB) ili Player Results(ime,tochki,data) ? 
+- Timer, Display
+- event - moje bi za timer-a kato izteche
+- design pattern ?
+- sound effects
+- menu na igrata 
+- nqkakvi kartinki na nachalen ekran i krai na igrata
+- oshte po vyprosi za vsqko nivo 
+- moje da slojim indekstarori na Player i da sravqnavame player-ite s Compare()
+- LINQ ?
+- custom exception
+
+
