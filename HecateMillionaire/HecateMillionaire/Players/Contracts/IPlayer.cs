@@ -13,6 +13,5 @@
 
         int StopGameAndTakeMoney();
         void SelectJoker(JokerType jokerType);
-        void GameOver();
     }
 }

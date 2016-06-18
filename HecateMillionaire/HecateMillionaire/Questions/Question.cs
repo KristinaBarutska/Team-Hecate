@@ -1,6 +1,7 @@
 ﻿namespace HecateMillionaire.Questions
 {
     using System;
+    using GameLogic;
 
     class Question
     {
@@ -15,7 +16,7 @@
             this.QuestionText = question;
             this.answers = answers;
             this.RightAnswerIndex = index;
-            this.QuestionScore = 100; //TODO change to constant
+            this.QuestionScore = GameConstants.QUESTION_SCORE;
         }
 
         public int QuestionScore { get; private set; }
@@ -43,10 +44,10 @@
             get { return this.rightAnswerIndex; }
             set
             {
-                if (value < 1 || value > this.answers.Length)
-                {
-                    throw new IndexOutOfRangeException(Common.GlobalErrorMessages.InvalidQuestionChoiceMessage);
-                }
+                //if (value < 1 || value > this.answers.Length)
+                //{
+                //    throw new IndexOutOfRangeException(Common.GlobalErrorMessages.InvalidQuestionChoiceMessage);
+                //}
                 this.rightAnswerIndex = value;
             }
         }

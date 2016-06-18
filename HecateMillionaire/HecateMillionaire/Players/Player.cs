@@ -12,6 +12,13 @@
         private int scores;
         private int wordsColor;
 
+        //player without color - for test only
+        public Player(string name)
+        {
+            this.Name = name;
+            this.Score = 0;
+        }
+
         public Player(string name, int wordsColor)
         {
             this.Name = name;
@@ -27,7 +34,7 @@
             }
             private set
             {
-                if (Name.Length < 4)
+                if (value.Length < 4)
                 {
                     throw new ArgumentException(GlobalErrorMessages.InvalidPlayerNameErrorMessage);
                 }
@@ -119,13 +126,14 @@
 
         }
 
-        public void GameOver()
-        {
-            if (this.Score != 0)
-            {
-                SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
-            }
-        }
+        //this method is moved in Game - EndGame()
+        //public void GameOver()
+        //{
+        //    if (this.Score != 0)
+        //    {
+        //        SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
+        //    }
+        //}
 
         WordsColor IPlayer.Color
         {

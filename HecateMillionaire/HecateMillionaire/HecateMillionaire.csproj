@@ -49,6 +49,9 @@
     <Compile Include="Common\GlobalErrorMessages.cs" />
     <Compile Include="Common\WordsColor.cs" />
     <Compile Include="BaseTable\DisplayTime.cs" />
+    <Compile Include="GameLogic\Contracts\IGame.cs" />
+    <Compile Include="GameLogic\Game.cs" />
+    <Compile Include="GameLogic\GameConstants.cs" />
     <Compile Include="Jokers\CallFriendJoker.cs" />
     <Compile Include="Jokers\FiftyFiftyJoker.cs" />
     <Compile Include="Jokers\HelpFromPublicJoker.cs" />
