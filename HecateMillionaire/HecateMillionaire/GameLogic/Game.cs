@@ -51,6 +51,8 @@
             string playerName = Console.ReadLine();
             player = new Player(playerName);
 
+            System.Console.Clear(); //clear console
+            
             //initialize questions
             questions = Game.InitializeQuestions(GameConstants.FILE_QUESTIONS);
         }
@@ -60,6 +62,7 @@
             //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
             for (int i = 0; i < questions.Count; i++)
             {
+                System.Console.Clear(); //clear console
 
                 System.Console.WriteLine(questions[i]);
 
