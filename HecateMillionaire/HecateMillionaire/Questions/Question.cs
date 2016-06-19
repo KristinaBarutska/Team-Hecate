@@ -44,10 +44,10 @@
             get { return this.rightAnswerIndex; }
             set
             {
-                //if (value < 1 || value > this.answers.Length)
-                //{
-                //    throw new IndexOutOfRangeException(Common.GlobalErrorMessages.InvalidQuestionChoiceMessage);
-                //}
+                if (value < 1 || value > this.answers.Length)
+                {
+                    throw new IndexOutOfRangeException(Common.GlobalErrorMessages.InvalidQuestionChoiceMessage);
+                }
                 this.rightAnswerIndex = value;
             }
         }

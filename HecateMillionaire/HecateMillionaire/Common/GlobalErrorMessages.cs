@@ -8,7 +8,7 @@
         public const string InvalidJokerErrorMessage = "Invalid joker type!";
         public const string SecondTimeJokerErrorMessage = "You already used this joker!";
         public const string EmptyQuestionMessage = "The question is empty";
-        public const string InvalidQuestionChoiceMessage = "The answer has to be A,B,C or D";
+        public const string InvalidQuestionChoiceMessage = "The right answer index has to be from 1 to 4";
 
      }
 }

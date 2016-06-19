@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HecateMillionaire", "HecateMillionaire\HecateMillionaire.csproj", "{C6408AB9-AC61-4E07-A273-8F30C05FFF95}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HecateMillionaire", "HecateMillionaire\HecateMillionaire.csproj", "{55B3C607-67E3-4276-8D5B-948D43DB5DF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C6408AB9-AC61-4E07-A273-8F30C05FFF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6408AB9-AC61-4E07-A273-8F30C05FFF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6408AB9-AC61-4E07-A273-8F30C05FFF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6408AB9-AC61-4E07-A273-8F30C05FFF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B3C607-67E3-4276-8D5B-948D43DB5DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B3C607-67E3-4276-8D5B-948D43DB5DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B3C607-67E3-4276-8D5B-948D43DB5DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B3C607-67E3-4276-8D5B-948D43DB5DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@
     using Common;
     using System;
 
-    abstract class Person
+    class Person
     {
         private string name;
 

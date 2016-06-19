@@ -106,7 +106,7 @@
             else
             {
                 Console.WriteLine("GAME OVER !");
-                Console.WriteLine("Do you want try another game");
+                Console.WriteLine("Do you want to try another game");
                 //TODO PLAYER CHOICE YES/NO
                 //restart game or Bye
 
@@ -153,7 +153,7 @@
                 string[] currentQuestion = questions[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 string questionText = currentQuestion[0];
                 string answersStr = currentQuestion[1];
-                int indexRightQuestion = int.Parse(currentQuestion[2]) - 1;
+                int indexRightQuestion = int.Parse(currentQuestion[2]);
 
                 string[] answers = answersStr.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
 

@@ -6,9 +6,9 @@
     using System.Text;
     using System.Threading.Tasks;
 
-   public class TableBoard
+    public class TableBoard
     {
-       public void Print()
+        public void Print()
         {
             // To DO: 
         }
