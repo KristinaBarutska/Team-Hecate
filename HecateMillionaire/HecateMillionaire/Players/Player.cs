@@ -104,7 +104,6 @@
             return this.Score;
         }
 
-
         private void InitelisateJoker()
         {
             jokers = new List<Joker>();
@@ -115,7 +114,7 @@
         }
 
         //TODO choose a joker type and call his method UseJoker()
-        public void SelectJoker(JokerType jokerType)
+        public bool SelectJoker(JokerType jokerType)
         {
             //what kind of joker ? - ask from the console
 
@@ -125,31 +124,38 @@
 
                     if (jokers[0].IsUsed)
                     {
-                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        Console.WriteLine("You can't use this joker again!");
+                        return false;
                     }
                     jokers[0].UseJoker();
-                    break;
+                    return true;
 
                 case JokerType.HellFromPublic:
 
                     if (jokers[1].IsUsed)
                     {
-                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        Console.WriteLine("You can't use this joker again!");
+                        return false;
                     }
                     jokers[1].UseJoker();
-                    break;
+                    return true;
 
                 case JokerType.CallFriend:
 
                     if (jokers[2].IsUsed)
                     {
-                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        Console.WriteLine("You can't use this joker again!");
+                        return false;
                     }
                     jokers[2].UseJoker();
-                    break;
+                    return true;
 
                 default:
                     throw new ArgumentException(GlobalErrorMessages.InvalidJokerErrorMessage);
+                    
             }
 
         }

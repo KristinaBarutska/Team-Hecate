@@ -91,15 +91,38 @@
 
                         switch (answer)
                         {
-                            case '1': 
-                                player.SelectJoker(JokerType.FiftyFifty);
-                                flag = true; //for print only two answers
+                            case '1':
+                                if (player.SelectJoker(JokerType.FiftyFifty))
+                                {
+                                    flag = true; //for print only two answers
+                                }
+                                else
+                                {
+                                    flag = false;
+                                    Thread.Sleep(1000);
+                                }
                                 break;
-                            case '2': 
-                                player.SelectJoker(JokerType.HellFromPublic);
+                            case '2':
+                                if (player.SelectJoker(JokerType.HellFromPublic))
+                                {
+                                    // TODO
+                                }
+                                else
+                                {
+                                    Thread.Sleep(1000);
+                                }
+                                
                                 break;
-                            case '3': 
-                                player.SelectJoker(JokerType.CallFriend);
+                            case '3':
+                                if (player.SelectJoker(JokerType.CallFriend))
+                                {
+                                    // TODO
+                                }
+                                else
+                                {
+                                    Thread.Sleep(1000);
+                                }
+                                
                                 break;
                             default:
                                 break;

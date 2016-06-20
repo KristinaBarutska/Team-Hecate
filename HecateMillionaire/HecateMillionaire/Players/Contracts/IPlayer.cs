@@ -12,6 +12,6 @@
         int Score { get; }
 
         int StopGameAndTakeMoney();
-        void SelectJoker(JokerType jokerType);
+        bool SelectJoker(JokerType jokerType);
     }
 }
