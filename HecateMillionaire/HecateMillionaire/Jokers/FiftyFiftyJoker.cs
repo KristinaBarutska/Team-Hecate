@@ -3,6 +3,12 @@
     class FiftyFiftyJoker : Joker
     {
 
+        public FiftyFiftyJoker(JokerType type)
+            : base(type)
+        {
+
+        }
+
         public override void UseJoker()
         {
 

@@ -3,6 +3,12 @@
     class CallFriendJoker : Joker
     {
 
+        public CallFriendJoker(JokerType type)
+            : base(type)
+        {
+
+        }
+
         public override void UseJoker()
         {
             //create a Friend 

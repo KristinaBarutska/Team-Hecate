@@ -5,10 +5,12 @@
     using System.IO;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System;
     using Players;
     using Questions;
     using WorkWithFile;
+    using Jokers;
 
     public class Game : IGame
     {
@@ -52,9 +54,10 @@
             player = new Player(playerName);
 
             System.Console.Clear(); //clear console
-            
+
             //initialize questions
             questions = Game.InitializeQuestions(GameConstants.FILE_QUESTIONS);
+
         }
 
         public void PlayGame()
@@ -62,25 +65,68 @@
             //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
             for (int i = 0; i < questions.Count; i++)
             {
-                System.Console.Clear(); //clear console
 
-                System.Console.WriteLine(questions[i]);
+                char answer;
+                bool flag = false;
 
-                //TODO ADD TIMER ? 
-                //TODO - да преместим проверката в метод на класа ?
+                while (true) //use infinitely loop because of jokers
+                {
 
-                char answer = Char.Parse(System.Console.ReadLine());
+                    System.Console.Clear(); //clear console
+
+                    System.Console.WriteLine(questions[i]);
+                    System.Console.WriteLine(questions[i].PrintAnswers(flag)); //print answers
+
+
+                    //TODO ADD TIMER ? 
+                    //TODO - да преместим проверката в метод на класа ?
+
+                    OfferJoker(); //Print jokers
+
+                    answer = Char.Parse(System.Console.ReadLine()); //take char answer
+
+                    //chek for use joker
+                    if (answer > '0' && answer <= '3')
+                    {
+
+                        switch (answer)
+                        {
+                            case '1': 
+                                player.SelectJoker(JokerType.FiftyFifty);
+                                flag = true; //for print only two answers
+                                break;
+                            case '2': 
+                                player.SelectJoker(JokerType.HellFromPublic);
+                                break;
+                            case '3': 
+                                player.SelectJoker(JokerType.CallFriend);
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                //
+
                 IsRight check = new IsRight(questions[i], answer);
                 if (check.Tell())
                 {
                     System.Console.WriteLine("Your answer is true");
                     //Add 100 scores if the answaer is right
                     player.Score += questions[i].QuestionScore;
-                    Console.WriteLine("SCORE : {0} ", player.Score);
+                    System.Console.WriteLine("SCORE : {0} ", player.Score);
+                    Thread.Sleep(1000); //white because of information
+
                 }
                 else
                 {
                     System.Console.WriteLine("You are wrong");
+                    Thread.Sleep(1000); //white because of information
                 }
                 //Край на промените на Кристина
             }
@@ -88,12 +134,28 @@
         }
 
 
-
-
         public bool CheckPlayerAnswer(char answer) { return false; }
 
-        public void OfferJoker() 
+        public void OfferJoker()
         {
+            var listJoker = player.Jokers;
+
+            Console.WriteLine();
+            System.Console.WriteLine("jokers:");
+
+            for (int j = 0; j < listJoker.Count; j++)
+            {
+                if (listJoker[j].IsUsed != true)
+                {
+                    System.Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
+                }
+                else
+                {
+                    System.Console.BackgroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
+                    System.Console.BackgroundColor = ConsoleColor.Black;
+                }
+            }
         }
 
         public void EndGame()
@@ -104,7 +166,7 @@
                 Console.WriteLine("You have {0} lv", player.Score);
 
                 //save record and name in file when game over 
-                SaveInFile.SetFileRekord(player.Score, player.Name); 
+                SaveInFile.SetFileRekord(player.Score, player.Name);
             }
             else
             {
@@ -160,7 +222,7 @@
 
                 string[] answers = answersStr.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
 
-                Question question = new Question(questionText, answers, indexRightQuestion);
+                Question question = new Question(questionText, answers, indexRightQuestion - 1);
                 questionsList.Add(question);
             }
             return questionsList;
@@ -176,7 +238,6 @@
             }
             return isWinner;
         }
-
 
     }
 }

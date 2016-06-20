@@ -2,7 +2,11 @@
 {
     class HelpFromPublicJoker : Joker
     {
+        public HelpFromPublicJoker(JokerType type)
+            : base(type)
+        {
 
+        }
         public override void UseJoker()
         {
             //generate random % for A,B,C,D

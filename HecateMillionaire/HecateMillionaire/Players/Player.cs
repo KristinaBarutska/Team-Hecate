@@ -2,6 +2,7 @@
 {
     using Contracts;
     using System;
+    using System.Collections.Generic;
     using Common;
     using Jokers;
     using WorkWithFile;
@@ -11,12 +12,14 @@
         private string name;
         private int scores;
         private int wordsColor;
+        private List<Joker> jokers;
 
         //player without color - for test only
         public Player(string name)
         {
             this.Name = name;
             this.Score = 0;
+            InitelisateJoker();
         }
 
         public Player(string name, int wordsColor)
@@ -24,6 +27,7 @@
             this.Name = name;
             this.WordsColor = wordsColor;
             this.Score = 0;
+            InitelisateJoker();
         }
 
         public string Name
@@ -86,6 +90,12 @@
             return String.Format("Player : {0} - {1} lv", this.name, this.scores);
         }
 
+        public List<Joker> Jokers
+        {
+            get { return jokers; }
+            set { jokers = value; }
+        }
+        
         //methods from IPlayer
 
         //the player give up - take the money earned in the game
@@ -94,34 +104,52 @@
             return this.Score;
         }
 
+
+        private void InitelisateJoker()
+        {
+            jokers = new List<Joker>();
+
+            jokers.Add(new FiftyFiftyJoker(JokerType.FiftyFifty));
+            jokers.Add(new HelpFromPublicJoker(JokerType.HellFromPublic));
+            jokers.Add(new CallFriendJoker(JokerType.CallFriend));
+        }
+
         //TODO choose a joker type and call his method UseJoker()
         public void SelectJoker(JokerType jokerType)
         {
             //what kind of joker ? - ask from the console
-            Joker joker;
 
             switch (jokerType)
             {
                 case JokerType.FiftyFifty:
-                    joker = new FiftyFiftyJoker();
+
+                    if (jokers[0].IsUsed)
+                    {
+                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                    }
+                    jokers[0].UseJoker();
                     break;
+
                 case JokerType.HellFromPublic:
-                    joker = new HelpFromPublicJoker();
+
+                    if (jokers[1].IsUsed)
+                    {
+                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                    }
+                    jokers[1].UseJoker();
                     break;
+
                 case JokerType.CallFriend:
-                    joker = new CallFriendJoker();
+
+                    if (jokers[2].IsUsed)
+                    {
+                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                    }
+                    jokers[2].UseJoker();
                     break;
+
                 default:
                     throw new ArgumentException(GlobalErrorMessages.InvalidJokerErrorMessage);
-            }
-
-            if (!joker.IsUsed)
-            {
-                joker.UseJoker();
-            }
-            else
-            {
-                throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
             }
 
         }

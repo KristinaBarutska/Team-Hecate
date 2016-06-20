@@ -21,7 +21,7 @@ namespace HecateMillionaire
 
         public bool Tell()
         {
-            if (Quest.RightAnswerIndex == (Answer - 'A') + 1)
+            if (Quest.RightAnswerIndex == (Answer - 'A'))
             {
                 return true;
             }
