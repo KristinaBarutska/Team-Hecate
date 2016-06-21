@@ -58,7 +58,7 @@
     <Compile Include="MainHecate.cs" />
     <Compile Include="Players\Contracts\IPlayer.cs" />
     <Compile Include="Players\Friend.cs" />
-    <Compile Include="Players\Person.cs" />
+    <Compile Include="Players\PublicHelp.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questions\Question.cs" />

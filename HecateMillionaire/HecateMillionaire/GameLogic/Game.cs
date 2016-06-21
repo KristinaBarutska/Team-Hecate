@@ -69,14 +69,14 @@
                 char answer;
                 bool flag = false;
 
-                while (true) //use infinitely loop because of jokers
+                //use infinitely loop because of jokers
+                while (true) 
                 {
 
                     System.Console.Clear(); //clear console
 
                     System.Console.WriteLine(questions[i]);
                     System.Console.WriteLine(questions[i].PrintAnswers(flag)); //print answers
-
 
                     //TODO ADD TIMER ? 
                     //TODO - да преместим проверката в метод на класа ?
@@ -88,46 +88,8 @@
                     //chek for use joker
                     if (answer > '0' && answer <= '3')
                     {
-
-                        switch (answer)
-                        {
-                            case '1':
-                                if (player.SelectJoker(JokerType.FiftyFifty))
-                                {
-                                    flag = true; //for print only two answers
-                                }
-                                else
-                                {
-                                    flag = false;
-                                    Thread.Sleep(1000);
-                                }
-                                break;
-                            case '2':
-                                if (player.SelectJoker(JokerType.HellFromPublic))
-                                {
-                                    // TODO
-                                }
-                                else
-                                {
-                                    Thread.Sleep(1000);
-                                }
-                                
-                                break;
-                            case '3':
-                                if (player.SelectJoker(JokerType.CallFriend))
-                                {
-                                    // TODO
-                                }
-                                else
-                                {
-                                    Thread.Sleep(1000);
-                                }
-                                
-                                break;
-                            default:
-                                break;
-                        }
-
+                        //for print only two answers when use FiftyFifty joker or print another joker
+                        flag = UseJoker(answer, questions[i].RightAnswerIndex, questions[i].Answers); 
                     }
                     else
                     {
@@ -156,7 +118,6 @@
             EndGame();
         }
 
-
         public bool CheckPlayerAnswer(char answer) { return false; }
 
         public void OfferJoker()
@@ -181,6 +142,64 @@
             }
         }
 
+        public bool UseJoker(char answer, int rithAnswerIndex, string[] answersOfQuestion)
+        {
+
+            bool flag = false; //for print only two answers when use FiftyFifty joker
+
+            switch (answer)
+            {
+                case '1':
+                    if (player.SelectJoker(JokerType.FiftyFifty))
+                    {
+                        flag = true; 
+                    }
+                    else
+                    {
+                        flag = false;
+                        Thread.Sleep(1000);
+                    }
+                    break;
+                case '2':
+                    if (player.SelectJoker(JokerType.HellFromPublic))
+                    {
+                        var fiftyFifty = player.Jokers[0]; //if used FiftyFifty joker
+
+                        PublicHelp help = new PublicHelp();
+                        System.Console.WriteLine("\nPublic thing");
+                        System.Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
+                        Thread.Sleep(3000);
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+                    }
+
+                    break;
+                case '3':
+                    if (player.SelectJoker(JokerType.CallFriend))
+                    {
+                        var fiftyFifty = player.Jokers[0]; //if used FiftyFifty joker
+
+                        System.Console.WriteLine("\nWho friend you want to call!");
+                        var friendName = System.Console.ReadLine();
+                        Friend friend = new Friend("frienName");
+                        System.Console.WriteLine(friend.Respond(fiftyFifty.IsUsed, answersOfQuestion));
+                        Thread.Sleep(3000);
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+
+            return flag;
+        }
+
         public void EndGame()
         {
             if (CheckForWinner())
@@ -193,20 +212,39 @@
             }
             else
             {
+                System.Console.Clear();
                 Console.WriteLine("GAME OVER !");
                 Console.WriteLine("Do you want to try another game");
+                Console.WriteLine("Input 'yes' for restart or 'no' for close");
+
+                string choise = System.Console.ReadLine();
+
                 //TODO PLAYER CHOICE YES/NO
                 //restart game or Bye
+                if (choise == "yes")
+                {
+                    System.Console.Clear();
+                    RestartGame();
+                }
+                else
+                {
+                    //show best players
+                    ShowStatistics();
+                    System.Console.WriteLine("\nBye!");
+                    
+                    return;
+                }
+               
 
             }
-            //show best players
-            ShowStatistics();
+            
 
         }
 
         public void ShowStatistics()
         {
             //print players results
+            TheBestThreePlayers.Show(player.Name);
         }
 
         public void RestartGame()
