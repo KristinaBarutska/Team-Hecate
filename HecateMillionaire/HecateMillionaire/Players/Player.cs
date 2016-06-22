@@ -5,13 +5,12 @@
     using System.Collections.Generic;
     using Common;
     using Jokers;
-    using WorkWithFile;
 
     class Player : IPlayer
     {
         private string name;
         private int scores;
-        private int wordsColor;
+        private int wordsColorType;
         private List<Joker> jokers;
 
         //player without color - for test only
@@ -22,10 +21,10 @@
             InitelisateJoker();
         }
 
-        public Player(string name, int wordsColor)
+        public Player(string name, int wordsColorType)
         {
             this.Name = name;
-            this.WordsColor = wordsColor;
+            this.WordsColorType = wordsColorType;
             this.Score = 0;
             InitelisateJoker();
         }
@@ -68,11 +67,11 @@
             }
         }
 
-        public int WordsColor
+        public int WordsColorType
         {
             get
             {
-                return this.wordsColor;
+                return this.wordsColorType;
             }
 
             private set
@@ -81,7 +80,7 @@
                 {
                     throw new ArgumentException(GlobalErrorMessages.InvalidWordsColorChoiceErrorMessage);
                 }
-                this.wordsColor = value;
+                this.wordsColorType = value;
             }
         }
 
@@ -95,7 +94,15 @@
             get { return jokers; }
             set { jokers = value; }
         }
-        
+
+        public WordsColorType Color
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         //methods from IPlayer
 
         //the player give up - take the money earned in the game
@@ -160,6 +167,12 @@
 
         }
 
+        int IPlayer.StopGameAndTakeMoney()
+        {
+            throw new NotImplementedException();
+        }
+
+
         //this method is moved in Game - EndGame()
         //public void GameOver()
         //{
@@ -168,14 +181,6 @@
         //        SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
         //    }
         //}
-
-        WordsColor IPlayer.Color
-        {
-            get
-            {
-                return (WordsColor)WordsColor; //cast int to color enum and return color
-            }
-        }
 
     }
 }

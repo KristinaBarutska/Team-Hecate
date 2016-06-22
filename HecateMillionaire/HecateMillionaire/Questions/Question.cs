@@ -1,7 +1,6 @@
 ﻿namespace HecateMillionaire.Questions
 {
     using System;
-    using GameLogic;
 
     class Question
     {
@@ -54,7 +53,7 @@
 
         public override string ToString()
         {
-           // return String.Format("{0}\nA.{1}\nB.{2}\nC.{3}\nD.{4}\n", this.QuestionText, answers[0], answers[1], answers[2], answers[3]);
+            // return String.Format("{0}\nA.{1}\nB.{2}\nC.{3}\nD.{4}\n", this.QuestionText, answers[0], answers[1], answers[2], answers[3]);
 
             return String.Format("{0}", this.QuestionText);
         }
@@ -68,12 +67,12 @@
                 var index = 0;
                 var anotherIndex = 0;
 
-                while(true)
+                while (true)
                 {
                     anotherIndex = rand.Next(0, 4);
                     index = rand.Next(0, 4);
-                    if ((anotherIndex != this.RightAnswerIndex) && 
-                        (index != this.RightAnswerIndex) && 
+                    if ((anotherIndex != this.RightAnswerIndex) &&
+                        (index != this.RightAnswerIndex) &&
                         (index != anotherIndex))
                     {
                         break;
@@ -82,7 +81,7 @@
 
                 answers[index] = "";
                 answers[anotherIndex] = "";
-                
+
                 return String.Format("A.{0}\nB.{1}\nC.{2}\nD.{3}\n", answers[0], answers[1], answers[2], answers[3]);
             }
             else

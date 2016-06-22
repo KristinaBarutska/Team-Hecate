@@ -35,27 +35,27 @@
         {
             //generate response
             //use joker call friend
-            string[] responses = new string[] {"Sorry,I don't know the answer but you can try ", "I'm sure the correct answer is ", 
+            string[] responses = new string[] {"Sorry,I don't know the answer but you can try ", "I'm sure the correct answer is ",
                                                 "I'm not sure but I think the answer is "};
 
             string response = "";
 
             //if used FiftyFifty joker
-            if (flag) 
+            if (flag)
             {
                 var indexForPrintAnswer = 0;
                 Random random = new Random();
 
                 while (true)
                 {
-                    var index = random.Next(0,3);
+                    var index = random.Next(0, 3);
                     if (answers[index] != "")
                     {
                         indexForPrintAnswer = index;
                         break;
                     }
                 }
-                
+
                 var charsAnswer = new[] { 'A', 'B', 'C', 'D' };
                 string randomResponse = responses[random.Next(2)];
                 char randomIndex = charsAnswer[indexForPrintAnswer];

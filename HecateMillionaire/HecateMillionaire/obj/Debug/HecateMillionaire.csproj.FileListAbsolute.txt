@@ -4,3 +4,8 @@ D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillio
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.csprojResolveAssemblyReference.cache
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
 D:\GitHub\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe.config
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.exe
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\obj\Debug\HecateMillionaire.pdb
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.exe
+C:\Users\desi\Desktop\Team-Hecate\HecateMillionaire\HecateMillionaire\bin\Debug\HecateMillionaire.pdb

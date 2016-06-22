@@ -7,7 +7,7 @@
     {
         string Name { get; }
 
-        WordsColor Color { get; }
+        WordsColorType Color { get; }
 
         int Score { get; }
 

@@ -41,11 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseTable\DisplayTime.cs" />
-    <Compile Include="BaseTable\TableBoard.cs" />
+    <Compile Include="Contracts\IScreen.cs" />
+    <Compile Include="Common\DisplayTime.cs" />
+    <Compile Include="BaseTable\Screen.cs" />
     <Compile Include="Common\Console\ConsoleConstants.cs" />
     <Compile Include="Common\GlobalErrorMessages.cs" />
-    <Compile Include="Common\WordsColor.cs" />
+    <Compile Include="Common\WordsColorType.cs" />
     <Compile Include="GameLogic\Contracts\IGame.cs" />
     <Compile Include="GameLogic\Game.cs" />
     <Compile Include="GameLogic\GameConstants.cs" />

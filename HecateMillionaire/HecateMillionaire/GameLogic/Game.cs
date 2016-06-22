@@ -4,7 +4,6 @@
     using System.Text;
     using System.IO;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System;
     using Players;
@@ -39,22 +38,19 @@
         public void InitiliazeGame()
         {
             //setup console
-            System.Console.OutputEncoding = Encoding.UTF8;
-
-            System.Console.Title = "Hey";
-            //System.Console.BackgroundColor = ConsoleColor.DarkRed;
-            //System.Console.SetCursorPosition(60, 0);
-            //System.Console.WriteLine("Enter your choice! =>>");
-            //System.Console.ForegroundColor = ConsoleColor.Cyan;
-
+            Console.OutputEncoding = Encoding.UTF8;
             //initialize player
             //TODO - add player color
-            System.Console.WriteLine("What's your name =>>");
+            Console.Title = "~ Hecate Millionaire ~";
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine("What's your name?  =>>");
             string playerName = Console.ReadLine();
             player = new Player(playerName);
 
-            System.Console.Clear(); //clear console
-
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
             //initialize questions
             questions = Game.InitializeQuestions(GameConstants.FILE_QUESTIONS);
 
@@ -70,26 +66,27 @@
                 bool flag = false;
 
                 //use infinitely loop because of jokers
-                while (true) 
+                while (true)
                 {
 
-                    System.Console.Clear(); //clear console
+                    Console.Clear(); //clear console
 
-                    System.Console.WriteLine(questions[i]);
-                    System.Console.WriteLine(questions[i].PrintAnswers(flag)); //print answers
+                    Console.WriteLine(questions[i]);
+                    Console.WriteLine(questions[i].PrintAnswers(flag)); //print answers
 
                     //TODO ADD TIMER ? 
                     //TODO - да преместим проверката в метод на класа ?
 
+
                     OfferJoker(); //Print jokers
 
-                    answer = Char.Parse(System.Console.ReadLine()); //take char answer
+                    answer = Char.Parse(Console.ReadLine()); //take char answer
 
                     //chek for use joker
                     if (answer > '0' && answer <= '3')
                     {
                         //for print only two answers when use FiftyFifty joker or print another joker
-                        flag = UseJoker(answer, questions[i].RightAnswerIndex, questions[i].Answers); 
+                        flag = UseJoker(answer, questions[i].RightAnswerIndex, questions[i].Answers);
                     }
                     else
                     {
@@ -101,16 +98,16 @@
                 IsRight check = new IsRight(questions[i], answer);
                 if (check.Tell())
                 {
-                    System.Console.WriteLine("Your answer is true");
+                    Console.WriteLine("Your answer is true");
                     //Add 100 scores if the answaer is right
                     player.Score += questions[i].QuestionScore;
-                    System.Console.WriteLine("SCORE : {0} ", player.Score);
+                    Console.WriteLine("SCORE : {0} ", player.Score);
                     Thread.Sleep(1000); //white because of information
 
                 }
                 else
                 {
-                    System.Console.WriteLine("You are wrong");
+                    Console.WriteLine("You are wrong");
                     Thread.Sleep(1000); //white because of information
                 }
                 //Край на промените на Кристина
@@ -125,7 +122,7 @@
             var listJoker = player.Jokers;
 
             Console.WriteLine();
-            System.Console.WriteLine("jokers:");
+            Console.WriteLine("Jokers:");
 
             for (int j = 0; j < listJoker.Count; j++)
             {
@@ -152,7 +149,7 @@
                 case '1':
                     if (player.SelectJoker(JokerType.FiftyFifty))
                     {
-                        flag = true; 
+                        flag = true;
                     }
                     else
                     {
@@ -212,32 +209,36 @@
             }
             else
             {
-                System.Console.Clear();
+                Console.Clear();
                 Console.WriteLine("GAME OVER !");
-                Console.WriteLine("Do you want to try another game");
-                Console.WriteLine("Input 'yes' for restart or 'no' for close");
+                Console.WriteLine("Do you want to try another game?");
+                Console.WriteLine("Press 'Enter' => for restart and play a new game\n Press 'Space' for close the game and see the result\n Press 'Esc' to close the game.");
 
-                string choise = System.Console.ReadLine();
+                var choice = Console.ReadKey();
 
                 //TODO PLAYER CHOICE YES/NO
                 //restart game or Bye
-                if (choise == "yes")
+                if (choice.Key == ConsoleKey.Enter)
                 {
-                    System.Console.Clear();
+                    Console.Clear();
                     RestartGame();
                 }
-                else
+                else if (choice.Key == ConsoleKey.Spacebar)
                 {
                     //show best players
                     ShowStatistics();
-                    System.Console.WriteLine("\nBye!");
-                    
-                    return;
+                    Console.WriteLine("\nBye!");
                 }
-               
-
+                else if (choice.Key == ConsoleKey.Escape)
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid choice.Try again!");
+                }
             }
-            
+
 
         }
 
