@@ -22,8 +22,16 @@
                 {
                     if (answers[i] != "")
                     {
-                        percent[i] = rand.Next(0, percentNumber);
-                        percentNumber -= percent[i];
+                        if (percentNumber == 100)
+                        {
+                            percent[i] = rand.Next(0, percentNumber);
+                            percentNumber -= percent[i];
+                        }
+                        else
+                        {
+                            percent[i] = percentNumber; //because sum of all percent = 100
+                        }
+
                     }
                 }
                 //
@@ -31,12 +39,14 @@
             else
             {
                 //create number for procents
-                for (int i = 0; i < percent.Length; i++)
+                for (int i = 0; i < percent.Length - 1; i++)
                 {
                     percent[i] = rand.Next(0, percentNumber);
                     percentNumber -= percent[i];
                 }
                 //
+
+                percent[3] = percentNumber; //because sum of all percent = 100
             }
 
             //take max number
