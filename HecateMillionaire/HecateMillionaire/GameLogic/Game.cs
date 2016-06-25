@@ -25,7 +25,23 @@
         private static List<Question> questions;
         private static Player player;
 
-        public Game() { }
+        //singleton pattern
+        //private constructor to restrict the game creation from outside
+        private Game() { }
+
+        //private static instance of the same class
+        private static readonly Game gameInstance = null;
+
+        static Game()
+        {
+            //create the instance only if the instance is null
+            gameInstance = new Game();
+        }
+        public static Game GetInstance()
+        {
+            // return the already existing instance
+            return gameInstance;
+        }
 
         //methods from IGame
         public void StartGame()

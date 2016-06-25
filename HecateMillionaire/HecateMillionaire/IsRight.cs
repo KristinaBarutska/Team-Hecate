@@ -10,8 +10,26 @@ namespace HecateMillionaire
     class IsRight
     {
         //ToDo Адекватни проверки за входните данни
+        private char answer;
+
         public Question Quest { get; set; }
-        public char Answer { get; set; }
+
+        public char Answer
+        {
+          get { return this.answer; }
+          set
+            {
+                //check if player answer is lowercase -> make it uppercase
+                if (Char.IsLower(value))
+                {
+                    this.answer = Char.ToUpper(value);
+                }
+                else
+                {
+                    this.answer = value;
+                }
+            }
+        }
 
         public IsRight(Question quest, char answer)
         {
@@ -21,7 +39,7 @@ namespace HecateMillionaire
 
         public bool Tell()
         {
-            if (Quest.RightAnswerIndex == (Answer - 'A'))
+            if (Quest.RightAnswerIndex == (this.Answer - 'A'))
             {
                 return true;
             }

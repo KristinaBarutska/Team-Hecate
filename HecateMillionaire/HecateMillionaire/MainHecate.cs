@@ -6,7 +6,7 @@
     {
         static void Main()
         {
-            Game game = new Game();
+            Game game = Game.GetInstance();
             game.StartGame();
         }
     }
