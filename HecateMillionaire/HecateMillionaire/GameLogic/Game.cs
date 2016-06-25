@@ -55,6 +55,11 @@
         {
             //setup console
             Console.OutputEncoding = Encoding.UTF8;
+
+            //load game image
+            LoadImage(GameConstants.FILE_HECATE_START);
+
+
             //initialize player
             //TODO - add player color
             Console.Title = "~ Hecate Millionaire ~";
@@ -217,8 +222,10 @@
         {
             if (CheckForWinner())
             {
-                Console.WriteLine("YOU'RE A HECATE MILIONAIRE !");
-                Console.WriteLine("You have {0} lv", player.Score);
+                Console.Clear();
+                LoadImage(GameConstants.FILE_CHAMPION);
+                Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE !");
+                Console.WriteLine("\tYou have {0} lv", player.Score);
 
                 //save record and name in file when game over 
                 SaveInFile.SetFileRekord(player.Score, player.Name);
@@ -226,7 +233,8 @@
             else
             {
                 Console.Clear();
-                Console.WriteLine("GAME OVER !");
+                LoadImage(GameConstants.FILE_GAME_OVER);
+                //Console.WriteLine("GAME OVER !");
                 Console.WriteLine("Do you want to try another game?");
                 Console.WriteLine("Press 'Enter' => for restart and play a new game\n Press 'Space' for close the game and see the result\n Press 'Esc' to close the game.");
 
@@ -304,6 +312,18 @@
                 questionsList.Add(question);
             }
             return questionsList;
+        }
+
+        private static void LoadImage(string filepath)
+        {
+            //Read from file
+            string[] lines = File.ReadAllLines(filepath);
+
+            foreach (string line in lines)
+            {
+                // Use a tab to indent each line of the file.
+                Console.WriteLine("\t" + line);
+            }
         }
 
         private bool CheckForWinner()
