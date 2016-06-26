@@ -3,6 +3,7 @@
     using Common.Console;
     using System;
     using WorkWithFile;
+    using System.Linq;
 
     public static class TheBestThreePlayers
     {
@@ -18,7 +19,8 @@
             {
                 if (records[j] != null)
                 {
-                    sortNumber[count] = int.Parse(records[j].Substring(0, 4)); //take 4 digits
+                    var current = records[j].Split(' ');
+                    sortNumber[count] = int.Parse(current[0]);
                     count++;
                 }
                 else
@@ -74,17 +76,22 @@
             //Print player position
             Console.WriteLine(ConsoleConstants.PositionMessage);
 
+            var sortArr = new string[records.Length];
+
             for (int i = 0; i < records.Length; i++)
             {
                 var currnet = records[i].Split(' ');
-                if (nameOfPlayer == currnet[2])
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine(i + 1 + " -> " + records[i]);
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    break;
-                }
+
+                sortArr[i] = currnet[2];
             }
+            
+
+            var positio = (sortArr.Where(x => x == nameOfPlayer)).Count();
+
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine(positio + " -> " + nameOfPlayer);
+            Console.BackgroundColor = ConsoleColor.Black;
+
             //
         }
     }

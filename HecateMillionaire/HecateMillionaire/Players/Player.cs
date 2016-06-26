@@ -5,8 +5,10 @@
     using System.Collections.Generic;
     using Common;
     using Jokers;
+    using HecateMillionaire.WorkWithFile;
+    using System.Collections;
 
-    class Player : IPlayer
+    public class Player : IPlayer, ICloneable , IEnumerable
     {
         private string name;
         private int scores;
@@ -117,7 +119,7 @@
 
             jokers.Add(new FiftyFiftyJoker(JokerType.FiftyFifty));
             jokers.Add(new HelpFromPublicJoker(JokerType.HellFromPublic));
-            jokers.Add(new CallFriendJoker(JokerType.CallFriend));
+            jokers.Add(new CallFriendJoker(JokerType.CallFriend," "));
         }
 
         //TODO choose a joker type and call his method UseJoker()
@@ -132,7 +134,7 @@
                     if (jokers[0].IsUsed)
                     {
                         //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        Console.WriteLine("You can't use this joker again!");
+                        Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                         return false;
                     }
                     jokers[0].UseJoker();
@@ -143,7 +145,7 @@
                     if (jokers[1].IsUsed)
                     {
                         //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        Console.WriteLine("You can't use this joker again!");
+                        Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                         return false;
                     }
                     jokers[1].UseJoker();
@@ -154,7 +156,7 @@
                     if (jokers[2].IsUsed)
                     {
                         //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        Console.WriteLine("You can't use this joker again!");
+                        Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                         return false;
                     }
                     jokers[2].UseJoker();
@@ -167,20 +169,37 @@
 
         }
 
-        int IPlayer.StopGameAndTakeMoney()
+        //this method is moved in Game - EndGame()
+        public void GameOver()
         {
-            throw new NotImplementedException();
+            if (this.Score != 0)
+            {
+                SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
+            }
         }
 
+        public object Clone()
+        {
+            var currentPlayer = new Player(this.Name);
 
-        //this method is moved in Game - EndGame()
-        //public void GameOver()
-        //{
-        //    if (this.Score != 0)
-        //    {
-        //        SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
-        //    }
-        //}
+            currentPlayer.WordsColorType = this.WordsColorType;
+            currentPlayer.Score = this.Score;
 
+            currentPlayer.Jokers[0] = this.Jokers[0];
+            currentPlayer.Jokers[1] = this.Jokers[1];
+            currentPlayer.Jokers[2] = this.Jokers[2];
+
+            return currentPlayer;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            var props = this.GetType().GetProperties();
+
+            foreach (var prop in props)
+            {
+                yield return prop;
+            }
+        }
     }
 }

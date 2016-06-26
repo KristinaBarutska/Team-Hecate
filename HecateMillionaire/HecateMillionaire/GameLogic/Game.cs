@@ -10,6 +10,7 @@
     using Questions;
     using WorkWithFile;
     using Jokers;
+    using HecateMillionaire.BaseTable;
 
     public class Game : IGame
     {
@@ -82,7 +83,6 @@
             //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
             for (int i = 0; i < questions.Count; i++)
             {
-
                 char answer;
                 bool flag = false;
 
@@ -100,8 +100,8 @@
 
 
                     OfferJoker(); //Print jokers
-
-                    answer = Char.Parse(Console.ReadLine()); //take char answer
+                    answer = DisplayTime.CreateTimer();
+                    //answer = Char.Parse(Console.ReadLine()); //take char answer
 
                     //chek for use joker
                     if (answer > '0' && answer <= '3')
@@ -115,6 +115,11 @@
                     }
                 }
                 //
+
+                if (answer == default(char))
+                {
+                    continue;
+                }
 
                 IsRight check = new IsRight(questions[i], answer);
                 if (check.Tell())
@@ -153,7 +158,7 @@
                 }
                 else
                 {
-                    System.Console.BackgroundColor = ConsoleColor.Red;
+                    System.Console.BackgroundColor = ConsoleColor.Cyan;
                     System.Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
                     System.Console.BackgroundColor = ConsoleColor.Black;
                 }
@@ -183,7 +188,7 @@
                     {
                         var fiftyFifty = player.Jokers[0]; //if used FiftyFifty joker
 
-                        PublicHelp help = new PublicHelp();
+                        HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HellFromPublic);
                         System.Console.WriteLine("\nPublic thing");
                         System.Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
                         Thread.Sleep(3000);
@@ -201,8 +206,8 @@
 
                         System.Console.WriteLine("\nWho friend you want to call!");
                         var friendName = System.Console.ReadLine();
-                        Friend friend = new Friend("frienName");
-                        System.Console.WriteLine(friend.Respond(fiftyFifty.IsUsed, answersOfQuestion));
+                        CallFriendJoker frient = new CallFriendJoker(JokerType.CallFriend, friendName);
+                        System.Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
                         Thread.Sleep(3000);
                     }
                     else
@@ -228,7 +233,7 @@
                 Console.WriteLine("\tYou have {0} lv", player.Score);
 
                 //save record and name in file when game over 
-                SaveInFile.SetFileRekord(player.Score, player.Name);
+                player.GameOver();
             }
             else
             {
@@ -236,7 +241,7 @@
                 LoadImage(GameConstants.FILE_GAME_OVER);
                 //Console.WriteLine("GAME OVER !");
                 Console.WriteLine("Do you want to try another game?");
-                Console.WriteLine("Press 'Enter' => for restart and play a new game\n Press 'Space' for close the game and see the result\n Press 'Esc' to close the game.");
+                Console.WriteLine("Press 'Enter' => for restart and play a new game\nPress 'Space' for close the game and see the result\nPress 'Esc' to close the game.");
 
                 var choice = Console.ReadKey();
 

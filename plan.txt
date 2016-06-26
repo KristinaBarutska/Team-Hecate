@@ -10,11 +10,6 @@ implemnts IPlayer, IComparable<Player>
 
 IPlayer interface
 
-Friend : Person
-name
-phoneNumber
-respond()
-
 Joker - abstract class
 JokerType
 
