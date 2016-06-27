@@ -5,6 +5,7 @@
     using System.IO;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Media;
     using System;
     using Players;
     using Questions;
@@ -12,7 +13,7 @@
     using Jokers;
     using HecateMillionaire.BaseTable;
 
-    public class Game : IGame
+    public class Game : IGame, ISound
     {
         //start game - method to be called from Main
         //ask for player's name and color
@@ -25,6 +26,7 @@
 
         private static List<Question> questions;
         private static Player player;
+        private static int wrongAnswers;
 
         //singleton pattern
         //private constructor to restrict the game creation from outside
@@ -47,9 +49,8 @@
         //methods from IGame
         public void StartGame()
         {
-            //initiliaze questions and player
+            //load game logo and menu
             InitiliazeGame();
-            PlayGame();
         }
 
         public void InitiliazeGame()
@@ -57,29 +58,26 @@
             //setup console
             Console.OutputEncoding = Encoding.UTF8;
 
-            //load game image
-            LoadImage(GameConstants.FILE_HECATE_START);
-
-
-            //initialize player
-            //TODO - add player color
             Console.Title = "~ Hecate Millionaire ~";
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine("What's your name?  =>>");
-            string playerName = Console.ReadLine();
-            player = new Player(playerName);
 
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.BackgroundColor = ConsoleColor.Black;
-            //initialize questions
+            //load game image and sound
+            LoadImage(GameConstants.FILE_HECATE_START);
+            playStartSound();
+
+            //initialize player and questions
+            player = new Player();
             questions = Game.InitializeQuestions(GameConstants.FILE_QUESTIONS);
+            wrongAnswers = 0;
 
+            LoadMainMenu();
         }
 
         public void PlayGame()
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
+
             //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
             for (int i = 0; i < questions.Count; i++)
             {
@@ -125,6 +123,7 @@
                 if (check.Tell())
                 {
                     Console.WriteLine("Your answer is true");
+                    playCorrectSound();
                     //Add 100 scores if the answaer is right
                     player.Score += questions[i].QuestionScore;
                     Console.WriteLine("SCORE : {0} ", player.Score);
@@ -134,7 +133,18 @@
                 else
                 {
                     Console.WriteLine("You are wrong");
+                    playWrongSound();
+                    wrongAnswers++;
                     Thread.Sleep(1000); //white because of information
+
+                    //game over if 3 wrong questions
+                    if (wrongAnswers == GameConstants.MAX_NUMBER_WRONG_ANSWERS)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You have 3 wrong answers !");
+                        Thread.Sleep(1000);
+                        break;
+                    }
                 }
                 //Край на промените на Кристина
             }
@@ -229,8 +239,8 @@
             {
                 Console.Clear();
                 LoadImage(GameConstants.FILE_CHAMPION);
-                Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE !");
-                Console.WriteLine("\tYou have {0} lv", player.Score);
+                playWinSound();
+                Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n", player.Score );
 
                 //save record and name in file when game over 
                 player.GameOver();
@@ -239,47 +249,81 @@
             {
                 Console.Clear();
                 LoadImage(GameConstants.FILE_GAME_OVER);
-                //Console.WriteLine("GAME OVER !");
-                Console.WriteLine("Do you want to try another game?");
-                Console.WriteLine("Press 'Enter' => for restart and play a new game\nPress 'Space' for close the game and see the result\nPress 'Esc' to close the game.");
+                playGameOverSound();
 
-                var choice = Console.ReadKey();
-
-                //TODO PLAYER CHOICE YES/NO
-                //restart game or Bye
-                if (choice.Key == ConsoleKey.Enter)
-                {
-                    Console.Clear();
-                    RestartGame();
-                }
-                else if (choice.Key == ConsoleKey.Spacebar)
-                {
-                    //show best players
-                    ShowStatistics();
-                    Console.WriteLine("\nBye!");
-                }
-                else if (choice.Key == ConsoleKey.Escape)
-                {
-                    Environment.Exit(0);
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid choice.Try again!");
-                }
+                Console.WriteLine("\tDo you want to try another game?\n");
             }
-
+            LoadMainMenu();
 
         }
 
         public void ShowStatistics()
         {
             //print players results
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.BackgroundColor = ConsoleColor.Black;
+
             TheBestThreePlayers.Show(player.Name);
         }
 
         public void RestartGame()
         {
             StartGame();
+        }
+
+        private void LoadMainMenu()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n\tSTART NEW GAME ?  =>> \n");
+            Console.WriteLine("\tSHOW BEST PLAYERS ?  =>>\n");
+            Console.WriteLine("\tEXIT ?  =>>\n");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
+
+            Console.WriteLine("\tPress 'Enter' => for restart and play a new game\n\tPress 'Space' for close the game and see the result\n\tPress 'Esc' to close the game.");
+
+            var choice = Console.ReadKey();
+
+            if (choice.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                
+                //the player don't plays for first time
+                if (!player.Name.Equals("Player"))
+                {
+                    player.Score = 0;
+                    PlayGame();
+                }
+                else
+                {
+                    //if this is the first game of this player
+                    //set player and start the game
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.WriteLine("What's your name?  =>>");
+                    string playerName = Console.ReadLine();
+                    player.Name = playerName;
+                    PlayGame();
+                }             
+            }
+            else if (choice.Key == ConsoleKey.Spacebar)
+            {
+                //show best players
+                ShowStatistics();
+                LoadMainMenu();
+            }
+            else if (choice.Key == ConsoleKey.Escape)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid choice.Try again!");
+            }
         }
 
         //helper methods
@@ -324,6 +368,7 @@
             //Read from file
             string[] lines = File.ReadAllLines(filepath);
 
+            Console.ForegroundColor = ConsoleColor.Red;
             foreach (string line in lines)
             {
                 // Use a tab to indent each line of the file.
@@ -342,5 +387,55 @@
             return isWinner;
         }
 
+
+        //methods from ISound
+        public void playGameOverSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_GAMEOVER))
+            {
+                // Use PlaySync to load and then play the sound.
+                // The program will pause until the sound is complete.
+                soundPlayer.PlaySync();
+            }
+        }
+
+        public void playWinSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_WIN))
+            {
+                // Use PlaySync to load and then play the sound.
+                // The program will pause until the sound is complete.
+                soundPlayer.PlaySync();
+            }
+        }
+
+        public void playCorrectSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_CORRECT))
+            {
+                // Use PlaySync to load and then play the sound.
+                // The program will pause until the sound is complete.
+                soundPlayer.PlaySync();
+            }
+        }
+
+        public void playWrongSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_WRONG))
+            {
+                // Use Play to bot wait too much time until the sound is complete and load next question
+                soundPlayer.Play();
+            }
+        }
+
+        public void playStartSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_START))
+            {
+                // Use PlaySync to load and then play the sound.
+                // The program will pause until the sound is complete.
+                soundPlayer.PlaySync();
+            }
+        }
     }
 }

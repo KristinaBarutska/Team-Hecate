@@ -51,8 +51,7 @@
 
                 }
             }
-            //
-
+            
             Console.WriteLine(ConsoleConstants.StandingMessage);
 
             //Print only three record
@@ -61,9 +60,8 @@
                 if (records[i] != null)
                 {
                     if (i < ConsoleConstants.BestThreePlayers)
-                    {
-                        Console.WriteLine(i + 1 + " -> " + records[i]);
-
+                    { 
+                        Console.WriteLine("\t{0} - > {1}",i + 1,records[i]);
                     }
                     else
                     {
@@ -71,28 +69,33 @@
                     }
                 }
             }
-            //
-
-            //Print player position
-            Console.WriteLine(ConsoleConstants.PositionMessage);
-
-            var sortArr = new string[records.Length];
-
-            for (int i = 0; i < records.Length; i++)
+                        
+            //print player's position only if he has already played a game
+            //don't print position for default player
+            if(!nameOfPlayer.Equals("Player"))
             {
-                var currnet = records[i].Split(' ');
+                //Print player position
+                Console.Write(ConsoleConstants.PositionMessage);
 
-                sortArr[i] = currnet[2];
+                var sortArr = new string[records.Length];
+
+                for (int i = 0; i < records.Length; i++)
+                {
+                    var currnet = records[i].Split(' ');
+
+                    sortArr[i] = currnet[2];
+                }
+
+
+                var positio = (sortArr.Where(x => x == nameOfPlayer)).Count();
+
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("{0} - > {1}", positio, nameOfPlayer);
+                Console.BackgroundColor = ConsoleColor.Black;
             }
-            
-
-            var positio = (sortArr.Where(x => x == nameOfPlayer)).Count();
-
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine(positio + " -> " + nameOfPlayer);
-            Console.BackgroundColor = ConsoleColor.Black;
-
-            //
         }
+
+         
     }
 }

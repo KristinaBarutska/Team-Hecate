@@ -15,7 +15,8 @@
         private int wordsColorType;
         private List<Joker> jokers;
 
-        //player without color - for test only
+        public Player() : this("Player") {}
+
         public Player(string name)
         {
             this.Name = name;
@@ -37,7 +38,7 @@
             {
                 return this.name;
             }
-            private set
+            set
             {
                 if (value.Length < 4)
                 {

@@ -48,6 +48,7 @@
     <Compile Include="Common\GlobalErrorMessages.cs" />
     <Compile Include="Common\WordsColorType.cs" />
     <Compile Include="GameLogic\Contracts\IGame.cs" />
+    <Compile Include="GameLogic\Contracts\ISound.cs" />
     <Compile Include="GameLogic\Game.cs" />
     <Compile Include="GameLogic\GameConstants.cs" />
     <Compile Include="Questions\IsRight.cs" />
@@ -69,7 +70,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="resources\champion.txt" />
+    <Content Include="resources\correct.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\gameover.txt" />
+    <Content Include="resources\gameover.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\hecate.txt" />
+    <Content Include="resources\start.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\win.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\wrong.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
