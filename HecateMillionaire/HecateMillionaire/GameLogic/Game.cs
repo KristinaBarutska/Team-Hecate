@@ -96,7 +96,6 @@
                     //TODO ADD TIMER ? 
                     //TODO - да преместим проверката в метод на класа ?
 
-
                     OfferJoker(); //Print jokers
                     answer = DisplayTime.CreateTimer();
                     //answer = Char.Parse(Console.ReadLine()); //take char answer
@@ -127,7 +126,7 @@
                     //Add 100 scores if the answaer is right
                     player.Score += questions[i].QuestionScore;
                     Console.WriteLine("SCORE : {0} ", player.Score);
-                    Thread.Sleep(1000); //white because of information
+                    Thread.Sleep(500); //white because of information
 
                 }
                 else
@@ -135,14 +134,14 @@
                     Console.WriteLine("You are wrong");
                     playWrongSound();
                     wrongAnswers++;
-                    Thread.Sleep(1000); //white because of information
+                    Thread.Sleep(500); //white because of information
 
                     //game over if 3 wrong questions
                     if (wrongAnswers == GameConstants.MAX_NUMBER_WRONG_ANSWERS)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You have 3 wrong answers !");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         break;
                     }
                 }
@@ -235,23 +234,39 @@
 
         public void EndGame()
         {
+
             if (CheckForWinner())
             {
+                string textWin = "YOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n";
+
                 Console.Clear();
                 LoadImage(GameConstants.FILE_CHAMPION);
                 playWinSound();
-                Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n", player.Score );
+
+                var currentCol = Console.WindowWidth / 2 - textWin.Length / 2;
+                Console.Write(new string(' ', currentCol));
+
+               // Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n", player.Score );
+
+                Console.WriteLine(string.Format(textWin,player.Score));
 
                 //save record and name in file when game over 
                 player.GameOver();
             }
             else
             {
+                string textLose = "Do you want to try another game?\n";
+
                 Console.Clear();
                 LoadImage(GameConstants.FILE_GAME_OVER);
                 playGameOverSound();
 
-                Console.WriteLine("\tDo you want to try another game?\n");
+                var currentCol = Console.WindowWidth / 2 - textLose.Length / 2;
+                Console.Write(new string(' ', currentCol));
+
+                //Console.WriteLine("\n\tDo you want to try another game?\n");
+
+                Console.WriteLine(textLose);
             }
             LoadMainMenu();
 
@@ -274,17 +289,37 @@
 
         private void LoadMainMenu()
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine("\n\tSTART NEW GAME ?  =>> \n");
-            Console.WriteLine("\tSHOW BEST PLAYERS ?  =>>\n");
-            Console.WriteLine("\tEXIT ?  =>>\n");
+            string[] textInformation = new string[]
+            {
+                "START NEW GAME ?  =>> \n",
+                "\tSHOW BEST PLAYERS ?  =>>\n",
+                "\tEXIT ?  =>>\n"
+            };
 
+            string[] textForChoise = new string[]
+            {
+                "\tPress 'Enter' => for restart and play a new game\n",
+                "\tPress 'Space' for close the game and see the result\n",
+                "\tPress 'Esc' to close the game."
+            };
+
+            Console.ForegroundColor = ConsoleColor.White;
+            //Console.BackgroundColor = ConsoleColor.Red;
+
+            //Console.WriteLine("\n\tSTART NEW GAME ?  =>> \n");
+            //Console.WriteLine("\tSHOW BEST PLAYERS ?  =>>\n");
+            //Console.WriteLine("\tEXIT ?  =>>\n");
+
+
+            ConsolePrintText.Print(textInformation);
+            
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine();
 
-            Console.WriteLine("\tPress 'Enter' => for restart and play a new game\n\tPress 'Space' for close the game and see the result\n\tPress 'Esc' to close the game.");
+            //Console.WriteLine("\tPress 'Enter' => for restart and play a new game\n\tPress 'Space' for close the game and see the result\n\tPress 'Esc' to close the game.");
+
+            ConsolePrintText.Print(textForChoise);
 
             var choice = Console.ReadKey();
 
@@ -369,11 +404,20 @@
             string[] lines = File.ReadAllLines(filepath);
 
             Console.ForegroundColor = ConsoleColor.Red;
-            foreach (string line in lines)
-            {
-                // Use a tab to indent each line of the file.
-                Console.WriteLine("\t" + line);
-            }
+
+            ConsolePrintText.Print(lines);
+
+            //foreach (string line in lines)
+            //{
+            //    var currentCol = Console.WindowWidth / 2 - line.Length / 2;
+
+            //    // Use a tab to indent each line of the file.
+            //    //Console.WriteLine("\t " + line);
+
+            //    Console.Write(new string(' ', currentCol));
+            //    Console.WriteLine(line);
+
+            //}
         }
 
         private bool CheckForWinner()
@@ -386,7 +430,6 @@
             }
             return isWinner;
         }
-
 
         //methods from ISound
         public void playGameOverSound()

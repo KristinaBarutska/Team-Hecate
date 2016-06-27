@@ -14,7 +14,7 @@
         {
             countTimer = 60;
 
-            Console.WriteLine("You have 1 minute for answer -> ... ");
+            Console.WriteLine("\nYou have 1 minute for answer -> ... ");
 
             // Create a timer with a two second interval.
             timer = new System.Timers.Timer(1000);
