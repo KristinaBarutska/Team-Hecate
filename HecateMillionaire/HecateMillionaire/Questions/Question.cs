@@ -2,10 +2,9 @@
 {
     using System;
 
-    class Question
+    public class Question
     {
-        //used for method public static List<Question> InitializeQuestions()
-
+        // used for method public static List<Question> InitializeQuestions()
         private string[] answers;
         private string questionText;
         private int rightAnswerIndex;
@@ -15,7 +14,7 @@
             this.QuestionText = question;
             this.answers = answers;
             this.RightAnswerIndex = index;
-            this.QuestionScore = GameConstants.QUESTION_SCORE;
+            this.QuestionScore = GameConstants.QuestionScore;
         }
 
         public int QuestionScore { get; private set; }
@@ -27,26 +26,36 @@
 
         public string QuestionText
         {
-            get { return this.questionText; }
+            get
+            {
+                return this.questionText;
+            }
+
             private set
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException(Common.GlobalErrorMessages.EmptyQuestionMessage);
                 }
+
                 this.questionText = value;
             }
         }
 
         public int RightAnswerIndex
         {
-            get { return this.rightAnswerIndex; }
+            get
+            {
+                return this.rightAnswerIndex;
+            }
+
             set
             {
                 if (value < 0 || value > this.answers.Length)
                 {
                     throw new IndexOutOfRangeException(Common.GlobalErrorMessages.InvalidQuestionChoiceMessage);
                 }
+
                 this.rightAnswerIndex = value;
             }
         }
@@ -54,14 +63,14 @@
         public override string ToString()
         {
             // return String.Format("{0}\nA.{1}\nB.{2}\nC.{3}\nD.{4}\n", this.QuestionText, answers[0], answers[1], answers[2], answers[3]);
-
-            return String.Format("{0}", this.QuestionText);
+            return string.Format("{0}", this.QuestionText);
         }
 
-        //Print answers
+        // Print answers
         public string PrintAnswers(bool flag)
         {
-            if (flag) //for FiftyFifty joker
+            // for FiftyFifty joker
+            if (flag) 
             {
                 Random rand = new Random();
                 var index = 0;
@@ -79,14 +88,14 @@
                     }
                 }
 
-                answers[index] = "";
-                answers[anotherIndex] = "";
+                this.answers[index] = string.Empty;
+                this.answers[anotherIndex] = string.Empty;
 
-                return String.Format("A.{0}\nB.{1}\nC.{2}\nD.{3}\n", answers[0], answers[1], answers[2], answers[3]);
+                return string.Format("A.{0}\nB.{1}\nC.{2}\nD.{3}\n", answers[0], answers[1], answers[2], answers[3]);
             }
             else
             {
-                return String.Format("A.{0}\nB.{1}\nC.{2}\nD.{3}\n", answers[0], answers[1], answers[2], answers[3]);
+                return string.Format("A.{0}\nB.{1}\nC.{2}\nD.{3}\n", answers[0], answers[1], answers[2], answers[3]);
             }
         }
     }

@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HecateMillionaire.Questions;
-
-namespace HecateMillionaire
+﻿namespace HecateMillionaire
 {
-    class IsRight
+    using System;
+    using HecateMillionaire.Questions;
+
+    public class IsRight
     {
-        //ToDo Адекватни проверки за входните данни
+        // ToDo Адекватни проверки за входните данни
         private char answer;
 
         public Question Quest { get; set; }
 
         public char Answer
         {
-          get { return this.answer; }
-          set
+            get
             {
-                //check if player answer is lowercase -> make it uppercase
-                if (Char.IsLower(value))
+                return this.answer;
+            }
+
+            set
+            {
+                // check if player answer is lowercase -> make it uppercase
+                if (char.IsLower(value))
                 {
-                    this.answer = Char.ToUpper(value);
+                    this.answer = char.ToUpper(value);
                 }
                 else
                 {
@@ -34,12 +34,12 @@ namespace HecateMillionaire
         public IsRight(Question quest, char answer)
         {
             this.Quest = quest;
-            this.Answer = answer;
+            this.Answer = char.ToUpper(answer);
         }
 
         public bool Tell()
         {
-            if (Quest.RightAnswerIndex == (this.Answer - 'A'))
+            if (this.Quest.RightAnswerIndex == (this.Answer - 'A'))
             {
                 return true;
             }
@@ -48,6 +48,5 @@ namespace HecateMillionaire
                 return false;
             }
         }
-
     }
 }

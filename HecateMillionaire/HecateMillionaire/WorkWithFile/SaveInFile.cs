@@ -2,30 +2,32 @@
 {
     using System.IO;
 
+    /// <summary>
+    /// Save player records on the fail.
+    /// </summary>
     public static class SaveInFile
     {
-        public static void SetFileRekord(int scorePlayer, string namePlayer) //Save on record
-        {
-
+        public static void SetFileRekord(int scorePlayer, string namePlayer)
+        { 
             string path = @"..\..\Record.txt";
 
-            FileStream CheckFile;
+            FileStream checkFile;
 
-            //Check file for existence
+            // Check file for existence
             if (!File.Exists(@"..\..\Record.txt"))
             {
-                CheckFile = File.Create(@"..\..\Record.txt");
-                CheckFile.Close();
+                checkFile = File.Create(@"..\..\Record.txt");
+                checkFile.Close();
             }
             else
             {
-                //Write in file
+                // Write in file
+                string updateScore = scorePlayer.ToString() + " by " + namePlayer;
 
-                string UpdateScore = scorePlayer.ToString() + " by " + namePlayer;
-
-                using (StreamWriter file = new StreamWriter(path, true)) //true -> save without clear file
+                // true -> save without clear file
+                using (StreamWriter file = new StreamWriter(path, true)) 
                 {
-                    file.WriteLine(UpdateScore);
+                    file.WriteLine(updateScore);
                 }
             }
         }

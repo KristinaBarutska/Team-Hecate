@@ -2,10 +2,14 @@
 {
     public interface ISound
     {
-        void playStartSound();
-        void playGameOverSound();
-        void playWinSound();
-        void playCorrectSound();
-        void playWrongSound();
+        void PlayStartSound();
+
+        void PlayGameOverSound();
+
+        void PlayWinSound();
+
+        void PlayCorrectSound();
+
+        void PlayWrongSound();
     }
 }

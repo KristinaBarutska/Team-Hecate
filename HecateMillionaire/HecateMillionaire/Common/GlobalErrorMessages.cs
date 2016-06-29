@@ -9,6 +9,6 @@
         public const string SecondTimeJokerErrorMessage = "You already used this joker!";
         public const string EmptyQuestionMessage = "The question is empty";
         public const string InvalidQuestionChoiceMessage = "The right answer index has to be from 1 to 4.";
-
+        public const string InvalidInputMessage = "Invaide input.Try again!";
      }
 }

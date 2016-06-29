@@ -5,14 +5,14 @@
 
     public static class ReadFromFile
     {
-        public static string[] GetFileRecord() //Load on record
+        public static string[] GetFileRecord() // Load on record
         {
-            String lineStatus = null;
+            string lineStatus = null;
             FileStream file = null;
-            String[] getRecord = new String[10];
+            string[] getRecord = new string[10];
             int count = 0;
 
-            //Check file for existence
+            // Check file for existence
             if (File.Exists(@"..\..\Record.txt"))
             {
                 file = File.OpenRead(@"..\..\Record.txt");
@@ -22,11 +22,9 @@
                 file = File.Create(@"..\..\Record.txt");
             }
 
-
-            //Read from file
+            // Read from file
             using (StreamReader sr = new StreamReader(file))
             {
-
                 while ((lineStatus = sr.ReadLine()) != null)
                 {
                     getRecord[count] = lineStatus;
@@ -48,20 +46,16 @@
                             getRecord[i] = currnetArr[i];
                         }
                     }
-
                 }
-
             }
-            //
 
-            //Take only record on getRecord arr
+            // Take only record on getRecord arr
             var highScore = new string[count];
 
             for (int i = 0; i < count; i++)
             {
                 highScore[i] += getRecord[i];
             }
-            //
 
             return highScore;
         }

@@ -1,19 +1,23 @@
-﻿
-namespace HecateMillionaire.Jokers
+﻿namespace HecateMillionaire.Jokers
 {
     using System;
     using System.Text;
-    class HelpFromPublicJoker : Joker
+
+    public class HelpFromPublicJoker : Joker
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
         public HelpFromPublicJoker(JokerType type)
             : base(type)
         {
-
         }
+
         public override void UseJoker()
         {
-            //generate random % for A,B,C,D
-            //mark the joker as used
+            // generate random % for A,B,C,D
+            // mark the joker as used
             this.IsUsed = true;
         }
 
@@ -25,13 +29,13 @@ namespace HecateMillionaire.Jokers
             Random rand = new Random();
             var percentNumber = 100;
 
-            //if used FiftyFifty joker
+            // if used FiftyFifty joker
             if (flag)
             {
-                //create number for procents
+                // create number for procents
                 for (int i = 0; i < percent.Length; i++)
                 {
-                    if (answers[i] != "")
+                    if (answers[i] != string.Empty)
                     {
                         if (percentNumber == 100)
                         {
@@ -40,30 +44,27 @@ namespace HecateMillionaire.Jokers
                         }
                         else
                         {
-                            percent[i] = percentNumber; //because sum of all percent = 100
+                            percent[i] = percentNumber; // because sum of all percent = 100
                         }
-
                     }
                 }
-                //
             }
             else
             {
-                //create number for procents
+                // create number for procents
                 for (int i = 0; i < percent.Length - 1; i++)
                 {
                     percent[i] = rand.Next(0, percentNumber);
                     percentNumber -= percent[i];
                 }
-                //
 
-                percent[3] = percentNumber; //because sum of all percent = 100
+                percent[3] = percentNumber; // because sum of all percent = 100
             }
 
-            //take max number
+            // take max number
             var maxpercent = Math.Max(Math.Max(percent[0], percent[1]), Math.Max(percent[2], percent[3]));
-
-            //move max number to right place
+             
+            // move max number to right place
             for (int i = 0; i < percent.Length; i++)
             {
                 if (maxpercent == percent[i] && i != righAnswer)
@@ -74,9 +75,8 @@ namespace HecateMillionaire.Jokers
                     break;
                 }
             }
-            //
 
-            //Formating print answer
+            // Formating print answer
             resoult.AppendFormat("{0}% ", percent[0]);
             resoult.AppendFormat(" {0}% ", percent[1]);
             resoult.AppendFormat(" {0}% ", percent[2]);
@@ -91,7 +91,6 @@ namespace HecateMillionaire.Jokers
             resoult.Append("    B");
             resoult.Append("   C");
             resoult.Append("    D \n");
-            //
 
             return resoult.ToString();
         }

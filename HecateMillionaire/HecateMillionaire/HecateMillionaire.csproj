@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Console\ConsolePrintText.cs" />
-    <Compile Include="Contracts\IScreen.cs" />
+    <Compile Include="BaseTable\Contracts\IScreen.cs" />
     <Compile Include="Common\DisplayTime.cs" />
     <Compile Include="BaseTable\Screen.cs" />
     <Compile Include="Common\Console\ConsoleConstants.cs" />
@@ -63,31 +65,31 @@
     <Compile Include="Players\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questions\Question.cs" />
-    <Compile Include="RightVoice.cs" />
-    <Compile Include="TheBestThreePlayers.cs" />
+    <Compile Include="WorkWithFile\TheBestThreePlayers.cs" />
     <Compile Include="WorkWithFile\ReadFromFile.cs" />
     <Compile Include="WorkWithFile\SaveInFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\champion.txt" />
-    <Content Include="resources\correct.wav">
+    <Content Include="Resources\champion.txt" />
+    <Content Include="Resources\correct.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\gameover.txt" />
-    <Content Include="resources\gameover.wav">
+    <Content Include="Resources\gameover.txt" />
+    <Content Include="Resources\gameover.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\hecate.txt" />
-    <Content Include="resources\start.wav">
+    <Content Include="Resources\hecate.txt" />
+    <Content Include="Resources\start.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\win.wav">
+    <Content Include="Resources\win.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\wrong.wav">
+    <Content Include="Resources\wrong.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

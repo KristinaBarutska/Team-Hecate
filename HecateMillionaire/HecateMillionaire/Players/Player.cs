@@ -1,27 +1,33 @@
 ﻿namespace HecateMillionaire.Players
 {
-    using Contracts;
     using System;
-    using System.Collections.Generic;
-    using Common;
-    using Jokers;
-    using HecateMillionaire.WorkWithFile;
     using System.Collections;
+    using System.Collections.Generic;
 
-    public class Player : IPlayer, ICloneable , IEnumerable
+    using Common;
+    using Contracts;
+    using HecateMillionaire.WorkWithFile;
+    using Jokers;
+
+    public class Player : IPlayer, ICloneable, IEnumerable
     {
         private string name;
         private int scores;
         private int wordsColorType;
         private List<Joker> jokers;
 
-        public Player() : this("Player") {}
+        /// <summary>
+        /// 
+        /// </summary>
+        public Player() : this("Player")
+        {
+        }
 
         public Player(string name)
         {
             this.Name = name;
             this.Score = 0;
-            InitelisateJoker();
+            this.InitelisateJoker();
         }
 
         public Player(string name, int wordsColorType)
@@ -29,7 +35,21 @@
             this.Name = name;
             this.WordsColorType = wordsColorType;
             this.Score = 0;
-            InitelisateJoker();
+            this.InitelisateJoker();
+        }
+
+        public WordsColorType Color
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public List<Joker> Jokers
+        {
+            get { return this.jokers; }
+            set { this.jokers = value; }
         }
 
         public string Name
@@ -38,6 +58,7 @@
             {
                 return this.name;
             }
+
             set
             {
                 if (value.Length < 4)
@@ -57,6 +78,7 @@
             {
                 return this.scores;
             }
+
             set
             {
                 if (value < 0)
@@ -83,32 +105,19 @@
                 {
                     throw new ArgumentException(GlobalErrorMessages.InvalidWordsColorChoiceErrorMessage);
                 }
+
                 this.wordsColorType = value;
             }
         }
 
         public override string ToString()
         {
-            return String.Format("Player : {0} - {1} lv", this.name, this.scores);
+            return string.Format("Player : {0} - {1} lv", this.name, this.scores);
         }
 
-        public List<Joker> Jokers
-        {
-            get { return jokers; }
-            set { jokers = value; }
-        }
+        // methods from IPlayer
 
-        public WordsColorType Color
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        //methods from IPlayer
-
-        //the player give up - take the money earned in the game
+        // the player give up - take the money earned in the game
         public int StopGameAndTakeMoney()
         {
             return this.Score;
@@ -120,24 +129,22 @@
 
             jokers.Add(new FiftyFiftyJoker(JokerType.FiftyFifty));
             jokers.Add(new HelpFromPublicJoker(JokerType.HellFromPublic));
-            jokers.Add(new CallFriendJoker(JokerType.CallFriend," "));
+            jokers.Add(new CallFriendJoker(JokerType.CallFriend, " "));
         }
 
-        //TODO choose a joker type and call his method UseJoker()
+        // TODO choose a joker type and call his method UseJoker()
         public bool SelectJoker(JokerType jokerType)
         {
-            //what kind of joker ? - ask from the console
-
+            // what kind of joker ? - ask from the console
             switch (jokerType)
             {
                 case JokerType.FiftyFifty:
 
                     if (jokers[0].IsUsed)
                     {
-                        //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        return false;
+                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                     }
+
                     jokers[0].UseJoker();
                     return true;
 
@@ -145,10 +152,9 @@
 
                     if (jokers[1].IsUsed)
                     {
-                        //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
-                        return false;
+                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                     }
+
                     jokers[1].UseJoker();
                     return true;
 
@@ -156,26 +162,25 @@
 
                     if (jokers[2].IsUsed)
                     {
-                        //throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        // throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                         Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                         return false;
                     }
+
                     jokers[2].UseJoker();
                     return true;
 
                 default:
                     throw new ArgumentException(GlobalErrorMessages.InvalidJokerErrorMessage);
-                    
             }
-
         }
 
-        //this method is moved in Game - EndGame()
+        // this method is moved in Game - EndGame()
         public void GameOver()
         {
             if (this.Score != 0)
             {
-                SaveInFile.SetFileRekord(this.Score, this.Name); //save record and name in file when game over 
+                SaveInFile.SetFileRekord(this.Score, this.Name); // save record and name in file when game over 
             }
         }
 

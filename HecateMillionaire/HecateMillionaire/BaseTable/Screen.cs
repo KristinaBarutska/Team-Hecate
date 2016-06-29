@@ -1,20 +1,21 @@
 ﻿namespace HecateMillionaire.BaseTable
 {
-    using Contracts;
-    using Players;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+
+    using Contracts;
 
     public class Screen : IScreen
     {
-        
+        /// <summary>
+        ///  
+        /// </summary>
+        /// 
 
-        public void Print()
+        // To Do: set image
+
+        public void SetBackgroundImage()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

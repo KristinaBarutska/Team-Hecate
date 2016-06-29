@@ -1,15 +1,14 @@
-﻿using System;
-namespace HecateMillionaire.Jokers
+﻿namespace HecateMillionaire.Jokers
 {
-    class CallFriendJoker : Joker
-    {
-         private string name;
+    using System;
 
-        
+    public class CallFriendJoker : Joker
+    {
+        private string name;
+
         public CallFriendJoker(JokerType type, string name)
             : base(type)
         {
-
         }
 
         public string Name
@@ -18,12 +17,12 @@ namespace HecateMillionaire.Jokers
             {
                 return this.name;
             }
+
             set
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException("Friend name can't be empty");
-
                 }
                 else
                 {
@@ -39,14 +38,12 @@ namespace HecateMillionaire.Jokers
 
         public string Respond(bool flag, string[] answers)
         {
-            //generate response
-            //use joker call friend
-            string[] responses = new string[] {"Sorry,I don't know the answer but you can try ", "I'm sure the correct answer is ",
-                                                "I'm not sure but I think the answer is "};
+            // generate response
+            // use joker call friend
+            string[] responses = new string[] { "Sorry,I don't know the answer but you can try ", "I'm sure the correct answer is ", "I'm not sure but I think the answer is " };
+            string response = string.Empty;
 
-            string response = "";
-
-            //if used FiftyFifty joker
+            // if used FiftyFifty joker
             if (flag)
             {
                 var indexForPrintAnswer = 0;
@@ -55,7 +52,7 @@ namespace HecateMillionaire.Jokers
                 while (true)
                 {
                     var index = random.Next(0, 3);
-                    if (answers[index] != "")
+                    if (answers[index] != string.Empty)
                     {
                         indexForPrintAnswer = index;
                         break;
@@ -69,7 +66,6 @@ namespace HecateMillionaire.Jokers
             }
             else
             {
-
                 var charsAnswer = new[] { 'A', 'B', 'C', 'D' };
                 Random random = new Random();
                 string randomResponse = responses[random.Next(2)];

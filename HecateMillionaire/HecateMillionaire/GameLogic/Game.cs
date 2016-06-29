@@ -1,75 +1,84 @@
 ﻿namespace HecateMillionaire.GameLogic
 {
-    using Contracts;
-    using System.Text;
-    using System.IO;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Media;
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Media;
+    using System.Text;
+    using System.Threading;
+
+    using Contracts;
+    using HecateMillionaire.BaseTable;
+    using Jokers;
     using Players;
     using Questions;
-    using WorkWithFile;
-    using Jokers;
-    using HecateMillionaire.BaseTable;
 
     public class Game : IGame, ISound
     {
-        //start game - method to be called from Main
-        //ask for player's name and color
-        //initilize game - create player, load questions
-        //play game - show the question, ask the player for his choice, set timer
-        //check if it's correct, if it's not - game over, otherwise ask next question
-        //game offers a joker - if player can't answer in time ?
-        //end of game - show player's scores, show players statistics 
-        //ask for new game
-
+        // start game - method to be called from Main
+        // ask for player's name and color
+        // initilize game - create player, load questions
+        // play game - show the question, ask the player for his choice, set timer
+        // check if it's correct, if it's not - game over, otherwise ask next question
+        // game offers a joker - if player can't answer in time ?
+        // end of game - show player's scores, show players statistics 
+        // ask for new game
+        // private static instance of the same class
+        private static readonly Game GameInstance = null;
         private static List<Question> questions;
         private static Player player;
         private static int wrongAnswers;
 
-        //singleton pattern
-        //private constructor to restrict the game creation from outside
-        private Game() { }
-
-        //private static instance of the same class
-        private static readonly Game gameInstance = null;
-
         static Game()
         {
-            //create the instance only if the instance is null
-            gameInstance = new Game();
+            // create the instance only if the instance is null
+            GameInstance = new Game();
         }
+
         public static Game GetInstance()
         {
             // return the already existing instance
-            return gameInstance;
+            return GameInstance;
         }
 
-        //methods from IGame
+        // singleton pattern
+        // private constructor to restrict the game creation from outside
+        private Game()
+        {
+        }
+
+        // methods from ISound
+        public void PlayGameOverSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundGameOver))
+            {
+                // Use PlaySync to load and then play the sound.
+                // The program will pause until the sound is complete.
+                soundPlayer.PlaySync();
+            }
+        }
+
+        // methods from IGame
         public void StartGame()
         {
-            //load game logo and menu
-            InitiliazeGame();
+            // load game logo and menu
+            this.InitiliazeGame();
         }
 
         public void InitiliazeGame()
         {
-            //setup console
-            Console.OutputEncoding = Encoding.UTF8;
-
             Console.Title = "~ Hecate Millionaire ~";
 
-            //load game image and sound
-            LoadImage(GameConstants.FILE_HECATE_START);
-            playStartSound();
+            // load game image and sound
+            LoadImage(GameConstants.FileHecateStart);
+            this.PlayStartSound();
 
-            //initialize player and questions
+            // initialize player and questions
             player = new Player();
-            questions = Game.InitializeQuestions(GameConstants.FILE_QUESTIONS);
+            questions = Game.InitializeQuestions(GameConstants.FileQuestions);
             wrongAnswers = 0;
 
-            LoadMainMenu();
+            this.LoadMainMenu();
         }
 
         public void PlayGame()
@@ -78,40 +87,36 @@
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.BackgroundColor = ConsoleColor.Black;
 
-            //17.6.2016, Kristina. Добавена е проверка за коректност на отговора
+            // 17.6.2016, Kristina. Добавена е проверка за коректност на отговора
             for (int i = 0; i < questions.Count; i++)
             {
                 char answer;
                 bool flag = false;
 
-                //use infinitely loop because of jokers
+                // use infinitely loop because of jokers
                 while (true)
                 {
-
-                    Console.Clear(); //clear console
+                    Console.Clear(); // clear console
 
                     Console.WriteLine(questions[i]);
-                    Console.WriteLine(questions[i].PrintAnswers(flag)); //print answers
+                    Console.WriteLine(questions[i].PrintAnswers(flag)); // print answers
 
-                    //TODO ADD TIMER ? 
-                    //TODO - да преместим проверката в метод на класа ?
-
-                    OfferJoker(); //Print jokers
+                    this.OfferJoker(); // Print jokers
                     answer = DisplayTime.CreateTimer();
-                    //answer = Char.Parse(Console.ReadLine()); //take char answer
 
-                    //chek for use joker
+                    // answer = Char.Parse(Console.ReadLine()); take char answer
+
+                    // chek for use joker
                     if (answer > '0' && answer <= '3')
                     {
-                        //for print only two answers when use FiftyFifty joker or print another joker
-                        flag = UseJoker(answer, questions[i].RightAnswerIndex, questions[i].Answers);
+                        // for print only two answers when use FiftyFifty joker or print another joker
+                        flag = this.UseJoker(answer, questions[i].RightAnswerIndex, questions[i].Answers);
                     }
                     else
                     {
                         break;
                     }
                 }
-                //
 
                 if (answer == default(char))
                 {
@@ -122,22 +127,23 @@
                 if (check.Tell())
                 {
                     Console.WriteLine("Your answer is true");
-                    playCorrectSound();
-                    //Add 100 scores if the answaer is right
-                    player.Score += questions[i].QuestionScore;
-                    Console.WriteLine("SCORE : {0} ", player.Score);
-                    Thread.Sleep(500); //white because of information
+                   this.PlayCorrectSound();
 
+                    // Add 100 scores if the answaer is right
+                    player.Score += questions[i].QuestionScore;
+
+                    Console.WriteLine("SCORE : {0} ", player.Score);
+                    Thread.Sleep(500); // white because of information
                 }
                 else
                 {
                     Console.WriteLine("You are wrong");
-                    playWrongSound();
+                    this.PlayWrongSound();
                     wrongAnswers++;
-                    Thread.Sleep(500); //white because of information
+                    Thread.Sleep(500); // white because of information
 
-                    //game over if 3 wrong questions
-                    if (wrongAnswers == GameConstants.MAX_NUMBER_WRONG_ANSWERS)
+                    // game over if 3 wrong questions
+                    if (wrongAnswers == GameConstants.MaxWrongAnswers)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You have 3 wrong answers !");
@@ -145,12 +151,17 @@
                         break;
                     }
                 }
-                //Край на промените на Кристина
+
+                // Край на промените на Кристина
             }
-            EndGame();
+
+            this.EndGame();
         }
 
-        public bool CheckPlayerAnswer(char answer) { return false; }
+        public bool CheckPlayerAnswer(char answer)
+        {
+            return false;
+        }
 
         public void OfferJoker()
         {
@@ -176,8 +187,7 @@
 
         public bool UseJoker(char answer, int rithAnswerIndex, string[] answersOfQuestion)
         {
-
-            bool flag = false; //for print only two answers when use FiftyFifty joker
+            bool flag = false; // for print only two answers when use FiftyFifty joker
 
             switch (answer)
             {
@@ -191,11 +201,12 @@
                         flag = false;
                         Thread.Sleep(1000);
                     }
+
                     break;
                 case '2':
                     if (player.SelectJoker(JokerType.HellFromPublic))
                     {
-                        var fiftyFifty = player.Jokers[0]; //if used FiftyFifty joker
+                        var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
 
                         HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HellFromPublic);
                         System.Console.WriteLine("\nPublic thing");
@@ -211,7 +222,7 @@
                 case '3':
                     if (player.SelectJoker(JokerType.CallFriend))
                     {
-                        var fiftyFifty = player.Jokers[0]; //if used FiftyFifty joker
+                        var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
 
                         System.Console.WriteLine("\nWho friend you want to call!");
                         var friendName = System.Console.ReadLine();
@@ -234,23 +245,21 @@
 
         public void EndGame()
         {
-
-            if (CheckForWinner())
+            if (this.CheckForWinner())
             {
                 string textWin = "YOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n";
 
                 Console.Clear();
-                LoadImage(GameConstants.FILE_CHAMPION);
-                playWinSound();
+                LoadImage(GameConstants.FileChampion);
+                this.PlayWinSound();
 
-                var currentCol = Console.WindowWidth / 2 - textWin.Length / 2;
+                var currentCol = (Console.WindowWidth / 2) - (textWin.Length / 2);
                 Console.Write(new string(' ', currentCol));
 
-               // Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n", player.Score );
+                // Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n", player.Score );
+                Console.WriteLine(string.Format(textWin, player.Score));
 
-                Console.WriteLine(string.Format(textWin,player.Score));
-
-                //save record and name in file when game over 
+                // save record and name in file when game over 
                 player.GameOver();
             }
             else
@@ -258,23 +267,22 @@
                 string textLose = "Do you want to try another game?\n";
 
                 Console.Clear();
-                LoadImage(GameConstants.FILE_GAME_OVER);
-                playGameOverSound();
+                LoadImage(GameConstants.FileGameOver);
+                this.PlayGameOverSound();
 
-                var currentCol = Console.WindowWidth / 2 - textLose.Length / 2;
+                var currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2);
                 Console.Write(new string(' ', currentCol));
 
-                //Console.WriteLine("\n\tDo you want to try another game?\n");
-
+                // Console.WriteLine("\n\tDo you want to try another game?\n");
                 Console.WriteLine(textLose);
             }
-            LoadMainMenu();
 
+            this.LoadMainMenu();
         }
 
         public void ShowStatistics()
         {
-            //print players results
+            // print players results
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -284,7 +292,7 @@
 
         public void RestartGame()
         {
-            StartGame();
+           this.StartGame();
         }
 
         private void LoadMainMenu()
@@ -304,52 +312,43 @@
             };
 
             Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Red;
-
-            //Console.WriteLine("\n\tSTART NEW GAME ?  =>> \n");
-            //Console.WriteLine("\tSHOW BEST PLAYERS ?  =>>\n");
-            //Console.WriteLine("\tEXIT ?  =>>\n");
-
 
             ConsolePrintText.Print(textInformation);
-            
+
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine();
 
-            //Console.WriteLine("\tPress 'Enter' => for restart and play a new game\n\tPress 'Space' for close the game and see the result\n\tPress 'Esc' to close the game.");
-
             ConsolePrintText.Print(textForChoise);
-
             var choice = Console.ReadKey();
 
             if (choice.Key == ConsoleKey.Enter)
             {
                 Console.Clear();
-                
-                //the player don't plays for first time
+
+                // the player don't plays for first time
                 if (!player.Name.Equals("Player"))
                 {
                     player.Score = 0;
-                    PlayGame();
+                    this.PlayGame();
                 }
                 else
                 {
-                    //if this is the first game of this player
-                    //set player and start the game
+                    // if this is the first game of this player
+                    // set player and start the game
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.WriteLine("What's your name?  =>>");
                     string playerName = Console.ReadLine();
                     player.Name = playerName;
-                    PlayGame();
-                }             
+                    this.PlayGame();
+                }
             }
             else if (choice.Key == ConsoleKey.Spacebar)
             {
-                //show best players
-                ShowStatistics();
-                LoadMainMenu();
+                // show best players
+                this.ShowStatistics();
+                this.LoadMainMenu();
             }
             else if (choice.Key == ConsoleKey.Escape)
             {
@@ -361,11 +360,10 @@
             }
         }
 
-        //helper methods
-
+        // helper methods
         private static List<Questions.Question> InitializeQuestions(string file)
         {
-            //read text file
+            // read text file
             StreamReader reader = new StreamReader(file);
             StringBuilder text = new StringBuilder();
             using (reader)
@@ -379,7 +377,7 @@
                 }
             }
 
-            //parse text to questions
+            // parse text to questions
             string[] questions = text.ToString().Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
 
             List<Question> questionsList = new List<Question>();
@@ -393,48 +391,38 @@
                 string[] answers = answersStr.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
 
                 Question question = new Question(questionText, answers, indexRightQuestion - 1);
+
                 questionsList.Add(question);
             }
+
             return questionsList;
         }
 
         private static void LoadImage(string filepath)
         {
-            //Read from file
+            // Read from file
             string[] lines = File.ReadAllLines(filepath);
 
             Console.ForegroundColor = ConsoleColor.Red;
 
             ConsolePrintText.Print(lines);
-
-            //foreach (string line in lines)
-            //{
-            //    var currentCol = Console.WindowWidth / 2 - line.Length / 2;
-
-            //    // Use a tab to indent each line of the file.
-            //    //Console.WriteLine("\t " + line);
-
-            //    Console.Write(new string(' ', currentCol));
-            //    Console.WriteLine(line);
-
-            //}
         }
 
         private bool CheckForWinner()
         {
             bool isWinner = false;
 
-            if (player.Score == GameConstants.MAX_SCORE)
+            if (player.Score == GameConstants.MaxScore)
             {
                 isWinner = true;
             }
+
             return isWinner;
         }
 
-        //methods from ISound
-        public void playGameOverSound()
+        public void PlayWinSound()
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_GAMEOVER))
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundWin))
             {
                 // Use PlaySync to load and then play the sound.
                 // The program will pause until the sound is complete.
@@ -442,9 +430,9 @@
             }
         }
 
-        public void playWinSound()
+        public void PlayCorrectSound()
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_WIN))
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundCorrect))
             {
                 // Use PlaySync to load and then play the sound.
                 // The program will pause until the sound is complete.
@@ -452,28 +440,18 @@
             }
         }
 
-        public void playCorrectSound()
+        public void PlayWrongSound()
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_CORRECT))
-            {
-                // Use PlaySync to load and then play the sound.
-                // The program will pause until the sound is complete.
-                soundPlayer.PlaySync();
-            }
-        }
-
-        public void playWrongSound()
-        {
-            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_WRONG))
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundWrong))
             {
                 // Use Play to bot wait too much time until the sound is complete and load next question
                 soundPlayer.Play();
             }
         }
 
-        public void playStartSound()
+        public void PlayStartSound()
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SOUND_START))
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundStart))
             {
                 // Use PlaySync to load and then play the sound.
                 // The program will pause until the sound is complete.
