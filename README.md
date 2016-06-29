@@ -1,4 +1,4 @@
-# CSharp OOP Teamwork Assignment June 2016
+ # CSharp OOP Teamwork Assignment June 2016
 
 ## Project Description
 
@@ -19,9 +19,9 @@ Design and implement an object-oriented application by choice. Here are some sug
 ## General Requirements
 Please define and implement the following object-oriented assets in your project:
 
-- At least **5 interfaces** (with one or more implementations)
-- At least **15 classes** (implementing the application logic)
-- At least **3 abstract classes** (with inheritors)
+- At least **5 interfaces** (with one or more implementations) => ✓	
+- At least **15 classes** (implementing the application logic) => ✓	
+- At least **3 abstract classes** (with inheritors) => 1
 - At least **1 custom exception class** (with usage in your code)
 - At least **3 levels of depth in inheritance**
 - At least **1 polymorphism usage**
