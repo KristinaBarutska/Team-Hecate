@@ -152,10 +152,7 @@
                     }
                     
                     //timer for answer
-                    int timer = currentQuestion.TimerSeconds;
-                    Console.WriteLine(timer);
-
-                    answer = DisplayTime.CreateTimer();
+                    answer = DisplayTime.CreateTimer(currentQuestion.TimerSeconds);
 
                     // answer = Char.Parse(Console.ReadLine()); take char answer
 
@@ -350,7 +347,8 @@
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.BackgroundColor = ConsoleColor.Black;
 
-            TheBestThreePlayers.Show(player.Name);
+            TheBestThreePlayers.ShowPlayerResultFileRekord(player.Name);
+            Console.WriteLine();
         }
 
         public void RestartGame()
@@ -363,8 +361,8 @@
             string[] textInformation = new string[]
             {
                 "START NEW GAME ?  =>> \n",
-                "\tSHOW BEST PLAYERS ?  =>>\n",
-                "\tEXIT ?  =>>\n"
+                "SHOW BEST PLAYERS ?  =>>\n",
+                "EXIT ?  =>>\n"
             };
 
             string[] textForChoise = new string[]

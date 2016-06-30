@@ -17,12 +17,25 @@
         private static int countTimer;
 
         //ToDo: print the remaning time
-        public static char CreateTimer()
+        public static char CreateTimer(int time)
         {
             countTimer = 10;
 
+            var textTime = "";
+
+            if (time > 60)
+            {
+                var minutes = time / 60;
+                var second = time % 60;
+                textTime = string.Format("{0} minutes {1} second", minutes, second);
+            }
+            else
+            {
+                textTime = string.Format("{0} second", time);
+            }
+
             //TODO - change the timer according to question level
-            Console.WriteLine("\nYou have 1 minute for answer -> ... ");
+            Console.WriteLine("\nYou have {0} for answer -> ... ", textTime);
 
             // Create a timer with a two second interval.
             timer = new System.Timers.Timer(1000);

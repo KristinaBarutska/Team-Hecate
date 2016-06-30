@@ -2,6 +2,7 @@
 {
     using System.IO;
     using Players;
+    using System;
 
     /// <summary>
     /// Save player records on the fail.
@@ -49,7 +50,7 @@
             else
             {
                 // Write in file
-                PlayerResult result = new PlayerResult(player.Name, player.Score);
+                PlayerResult result = new PlayerResult(player.Name, player.Score, DateTime.Now);
                 string updateScore = result.Scores.ToString() + " by " + result.PlayerName + " at " + result.Date;
 
                 // true -> save without clear file
