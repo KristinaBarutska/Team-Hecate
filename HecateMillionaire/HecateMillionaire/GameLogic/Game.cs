@@ -334,14 +334,25 @@
                 }
                 else
                 {
-                    // if this is the first game of this player
-                    // set player and start the game
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.WriteLine("What's your name?  =>>");
-                    string playerName = Console.ReadLine();
+                    string playerName = string.Empty;
+                    do
+                    {
+                        //if this is the first game of this player
+                        //set player and start the game
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                        Console.WriteLine("Player name must be at least 4 symbols\n");
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                        Console.WriteLine("What's your name?  =>>");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        playerName = Console.ReadLine();
+
+                    } while (playerName.Length < 4);
+
                     player.Name = playerName;
-                    this.PlayGame();
+                    PlayGame();
                 }
             }
             else if (choice.Key == ConsoleKey.Spacebar)

@@ -54,6 +54,8 @@
     <Compile Include="GameLogic\Contracts\ISound.cs" />
     <Compile Include="GameLogic\Game.cs" />
     <Compile Include="GameLogic\GameConstants.cs" />
+    <Compile Include="HecateExceptions\InvalidAnswerException.cs" />
+    <Compile Include="HecateExceptions\InvalidJokerException.cs" />
     <Compile Include="Questions\IsRight.cs" />
     <Compile Include="Jokers\CallFriendJoker.cs" />
     <Compile Include="Jokers\FiftyFiftyJoker.cs" />
