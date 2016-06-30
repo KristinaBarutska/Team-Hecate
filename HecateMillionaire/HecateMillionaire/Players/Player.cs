@@ -180,7 +180,9 @@
         {
             if (this.Score != 0)
             {
-                SaveInFile.SetFileRekord(this.Score, this.Name); // save record and name in file when game over 
+                //SaveInFile.SetFileRekord(this.Score, this.Name); // save record and name in file when game over 
+                // save player result using Struct PlayerResult
+                SaveInFile.SetPlayerResultFileRekord(this);
             }
         }
 

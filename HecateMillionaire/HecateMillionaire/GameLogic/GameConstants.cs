@@ -3,6 +3,9 @@
     public class GameConstants
     {
         public const string FileQuestions = @"..\..\questions.txt";
+        public const string FilePlayerResults = @"..\..\RecordPlayerResults.txt";
+
+
         public const string FileGameOver = @"..\..\resources\gameover.txt";
         public const string FileChampion = @"..\..\resources\champion.txt";
         public const string FileHecateStart = @"..\..\resources\hecate.txt";

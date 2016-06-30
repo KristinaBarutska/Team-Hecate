@@ -126,20 +126,24 @@
                 IsRight check = new IsRight(questions[i], answer);
                 if (check.Tell())
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Your answer is true");
-                   this.PlayCorrectSound();
+                    this.PlayCorrectSound();
 
                     // Add 100 scores if the answaer is right
                     player.Score += questions[i].QuestionScore;
 
                     Console.WriteLine("SCORE : {0} ", player.Score);
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Thread.Sleep(500); // white because of information
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You are wrong");
                     this.PlayWrongSound();
                     wrongAnswers++;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Thread.Sleep(500); // white because of information
 
                     // game over if 3 wrong questions
@@ -259,8 +263,7 @@
                 // Console.WriteLine("\n\tYOU'RE A HECATE MILIONAIRE ! - You have {0} lv\n", player.Score );
                 Console.WriteLine(string.Format(textWin, player.Score));
 
-                // save record and name in file when game over 
-                player.GameOver();
+                // save record and name in file when game over
             }
             else
             {
@@ -270,12 +273,16 @@
                 LoadImage(GameConstants.FileGameOver);
                 this.PlayGameOverSound();
 
-                var currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2);
+                var currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2)-5;
                 Console.Write(new string(' ', currentCol));
 
                 // Console.WriteLine("\n\tDo you want to try another game?\n");
+                Console.WriteLine("You have win {0} lv but you're not THE CHAMPION",player.Score);
+                currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2);
+                Console.Write(new string(' ', currentCol));
                 Console.WriteLine(textLose);
             }
+            player.GameOver();
 
             this.LoadMainMenu();
         }
