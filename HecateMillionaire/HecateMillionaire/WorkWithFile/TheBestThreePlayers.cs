@@ -107,7 +107,7 @@
 
         public static void ShowPlayerResultFileRekord(string nameOfPlayer)
         {
-            var records = ReadFromFile.GetPlayerResultFileRekord().OrderBy(x => x.Scores).ToList();
+            var records = ReadFromFile.GetPlayerResultFileRekord().OrderByDescending(x => x.Scores).ToList();
 
             Console.WriteLine(ConsoleConstants.StandingMessage);
 
@@ -133,18 +133,18 @@
                 // Print player position
                 Console.Write(ConsoleConstants.PositionMessage);
 
-                for (int i = 0; i < records.Count; i++)
-                {
-                    if (records[i].PlayerName == nameOfPlayer)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine("{0} - > {1}", i + 1, nameOfPlayer);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                    }
-                }
+                //for (int i = 0; i < records.Count; i++)
+                //{
+                //    if (records[i].PlayerName == nameOfPlayer)
+                //    {
+                //        Console.BackgroundColor = ConsoleColor.Red;
+                //        Console.ForegroundColor = ConsoleColor.Black;
+                //        Console.WriteLine("{0} - > {1}", i + 1, nameOfPlayer);
+                //        Console.BackgroundColor = ConsoleColor.Black;
+                //    }
+                //}
 
-                //var positio = records.Where(item => item.PlayerName == "stacy").Count();
+               // var positio = records.Where(item => item.PlayerName == "nbmbmbm").Count();
 
                 //Console.BackgroundColor = ConsoleColor.Red;
                 //Console.ForegroundColor = ConsoleColor.Black;
