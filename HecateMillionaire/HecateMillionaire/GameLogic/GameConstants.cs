@@ -16,10 +16,16 @@
         public const string SoundWrong = @"..\..\resources\wrong.wav";
         public const string SoundStart = @"..\..\resources\start.wav";
 
-        public const int QuestionScore = 100;
-        public const int MaxScore = 500;
-        public const int NumberOfQuestion = 5;
+        public const int QuestionScoreLevel1 = 100;
+        public const int QuestionScoreLevel2 = 500;
+        public const int QuestionScoreLevel3 = 1000;
 
+        public const int TimerLevel1 = 30;
+        public const int TimerLevel2 = 60;
+        public const int TimerLevel3 = 90;
+
+        public const int MaxScore = 8000;
+        public const int NumberOfQuestionPerLevel = 5;
         public const int MaxWrongAnswers = 3;
     }
 }

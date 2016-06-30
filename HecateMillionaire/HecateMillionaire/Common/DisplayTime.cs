@@ -21,6 +21,7 @@
         {
             countTimer = 10;
 
+            //TODO - change the timer according to question level
             Console.WriteLine("\nYou have 1 minute for answer -> ... ");
 
             // Create a timer with a two second interval.

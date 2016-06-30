@@ -3,7 +3,7 @@
     using System;
     using HecateMillionaire.Questions;
 
-    public class IsRight
+    public class QuestionChecker
     {
         // ToDo Адекватни проверки за входните данни
         private char answer;
@@ -31,7 +31,7 @@
             }
         }
 
-        public IsRight(Question quest, char answer)
+        public QuestionChecker(Question quest, char answer)
         {
             this.Quest = quest;
             this.Answer = char.ToUpper(answer);

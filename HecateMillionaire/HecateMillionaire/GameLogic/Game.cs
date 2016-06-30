@@ -28,6 +28,8 @@
         private static List<Question> questions;
         private static Player player;
         private static int wrongAnswers;
+        private static bool isSkippedQuestion;
+        private static bool isUnlockJoker;
 
         static Game()
         {
@@ -75,7 +77,8 @@
 
             // initialize player and questions
             player = new Player();
-            questions = Game.InitializeQuestions(GameConstants.FileQuestions);
+            //questions = Game.InitializeQuestions(GameConstants.FileQuestions);
+            questions = Game.InitializeQuestionsWithLevels(GameConstants.FileQuestions);
             wrongAnswers = 0;
 
             this.LoadMainMenu();
@@ -92,16 +95,66 @@
             {
                 char answer;
                 bool flag = false;
+                Question currentQuestion = questions[i];
+                
 
                 // use infinitely loop because of jokers
                 while (true)
                 {
                     Console.Clear(); // clear console
 
-                    Console.WriteLine(questions[i]);
-                    Console.WriteLine(questions[i].PrintAnswers(flag)); // print answers
+                    Console.WriteLine(currentQuestion);
+                    Console.WriteLine(currentQuestion.PrintAnswers(flag)); // print answers
 
-                    this.OfferJoker(); // Print jokers
+                    //check for level
+                    if (currentQuestion.GetType().Name.Equals("QuestionLevel2"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("BONUS!You unlock the jokers!");
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        QuestionLevel2 currentQuestionLevel2 = currentQuestion as QuestionLevel2;
+                        isUnlockJoker = true;
+                    }
+                    if (currentQuestion.GetType().Name.Equals("QuestionLevel3"))
+                    {
+                        QuestionLevel3 currentQuestionLevel3 = currentQuestion as QuestionLevel3;
+
+                        if (!isSkippedQuestion)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("BONUS!You can skip one question!");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+
+                            Console.Write("Do you want to skip this question - y/n :");
+                            var skipChoice = Char.Parse(Console.ReadLine());
+
+                            if (skipChoice == 'y' || skipChoice == 'Y')
+                            {
+                                Console.Clear();
+                                isSkippedQuestion = true;
+                                QuestionLevel3 nextQuestion = currentQuestionLevel3.SkipQuestion(currentQuestionLevel3, questions);
+                                currentQuestionLevel3 = nextQuestion;
+
+                                //print next question
+                                Console.Clear(); //clear console
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Next question :");
+                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                Console.WriteLine(currentQuestionLevel3);
+                                Console.WriteLine(currentQuestionLevel3.PrintAnswers(flag)); //print answers
+                            }
+                        }
+                    }
+
+                    if (isUnlockJoker)
+                    {
+                        this.OfferJoker(); // Print jokers
+                    }
+                    
+                    //timer for answer
+                    int timer = currentQuestion.TimerSeconds;
+                    Console.WriteLine(timer);
+
                     answer = DisplayTime.CreateTimer();
 
                     // answer = Char.Parse(Console.ReadLine()); take char answer
@@ -110,7 +163,7 @@
                     if (answer > '0' && answer <= '3')
                     {
                         // for print only two answers when use FiftyFifty joker or print another joker
-                        flag = this.UseJoker(answer, questions[i].RightAnswerIndex, questions[i].Answers);
+                        flag = this.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers);
                     }
                     else
                     {
@@ -123,15 +176,15 @@
                     continue;
                 }
 
-                IsRight check = new IsRight(questions[i], answer);
-                if (check.Tell())
+                QuestionChecker checker = new QuestionChecker(currentQuestion, answer);
+                if (checker.Tell())
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Your answer is true");
                     this.PlayCorrectSound();
 
                     // Add 100 scores if the answaer is right
-                    player.Score += questions[i].QuestionScore;
+                    player.Score += currentQuestion.QuestionScore;
 
                     Console.WriteLine("SCORE : {0} ", player.Score);
                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -155,7 +208,10 @@
                         break;
                     }
                 }
-
+                if (isSkippedQuestion)
+                {
+                    currentQuestion = questions[i++];
+                }
                 // Край на промените на Кристина
             }
 
@@ -379,7 +435,7 @@
         }
 
         // helper methods
-        private static List<Questions.Question> InitializeQuestions(string file)
+        private static List<Question> InitializeQuestions(string file)
         {
             // read text file
             StreamReader reader = new StreamReader(file);
@@ -412,7 +468,59 @@
 
                 questionsList.Add(question);
             }
+            return questionsList;
+        }
 
+        private static List<Question> InitializeQuestionsWithLevels(string file)
+        {
+            // read text file
+            StreamReader reader = new StreamReader(file);
+            StringBuilder text = new StringBuilder();
+            using (reader)
+            {
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+                    text.Append(line);
+                    text.Append(Environment.NewLine);
+                    line = reader.ReadLine();
+                }
+            }
+
+            // parse text to questions
+            //5 questions per level
+            //TODO 15-th question is the same as 14-th -> to change it
+            string[] questions = text.ToString().Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
+
+            List<Question> questionsList = new List<Question>();
+            for (int i = 0; i < questions.Length; i++)
+            {
+                string[] currentQuestion = questions[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string questionText = currentQuestion[0];
+                string answersStr = currentQuestion[1];
+                int indexRightQuestion = int.Parse(currentQuestion[2]);
+
+                string[] answers = answersStr.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+
+                Question question;
+                //first 5 are Level1, next 5 - Level2, next 5 - Level3
+                //level1
+                if (i < GameConstants.NumberOfQuestionPerLevel)
+                {
+                    question = new QuestionLevel1(questionText, answers, indexRightQuestion - 1);
+                }
+                //level2
+                else if (i >= GameConstants.NumberOfQuestionPerLevel && i < GameConstants.NumberOfQuestionPerLevel * 2)
+                {
+                    question = new QuestionLevel2(questionText, answers, indexRightQuestion - 1);
+                }
+                //lelev3
+                else 
+                {
+                    question = new QuestionLevel3(questionText, answers, indexRightQuestion - 1);
+                }
+                questionsList.Add(question);
+            }
             return questionsList;
         }
 
@@ -430,11 +538,10 @@
         {
             bool isWinner = false;
 
-            if (player.Score == GameConstants.MaxScore)
+            if (player.Score == this.GetGameMaxScore())
             {
                 isWinner = true;
             }
-
             return isWinner;
         }
 
@@ -475,6 +582,14 @@
                 // The program will pause until the sound is complete.
                 soundPlayer.PlaySync();
             }
+        }
+
+        private int GetGameMaxScore()
+        {
+            int maxScore = GameConstants.NumberOfQuestionPerLevel * GameConstants.QuestionScoreLevel1
+                + GameConstants.NumberOfQuestionPerLevel * GameConstants.QuestionScoreLevel2
+                + GameConstants.NumberOfQuestionPerLevel * GameConstants.QuestionScoreLevel3;
+            return maxScore;
         }
     }
 }

@@ -9,16 +9,23 @@
         private string questionText;
         private int rightAnswerIndex;
 
+        protected int questionScore;
+        protected int timerSeconds;
+
         public Question(string question, string[] answers, int index)
         {
             this.QuestionText = question;
             this.answers = answers;
             this.RightAnswerIndex = index;
-            this.QuestionScore = GameConstants.QuestionScore;
+            this.QuestionScore = 0;
+            this.TimerSeconds = 0;
+
         }
 
-        public int QuestionScore { get; private set; }
-
+        //properties to be overriden in classes QuestionLevel1, QuestionLevel2 and QuestionLevel3
+        public virtual int QuestionScore { get; set; }
+        public virtual int TimerSeconds { get; set; }
+        
         public string[] Answers
         {
             get { return this.answers; }
