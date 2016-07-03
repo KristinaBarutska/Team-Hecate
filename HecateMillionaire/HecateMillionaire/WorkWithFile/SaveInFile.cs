@@ -51,7 +51,13 @@
             {
                 // Write in file
                 PlayerResult result = new PlayerResult(player.Name, player.Score, DateTime.Now);
-                string updateScore = result.Scores.ToString() + " by " + result.PlayerName + " at " + result.Date;
+                var dateSet = string.Format("{0}.{1}.{2} {3}:{4}:{5}", result.Date.Day,
+                                                                      result.Date.Month,
+                                                                      result.Date.Year,
+                                                                      result.Date.Hour,
+                                                                      result.Date.Minute,
+                                                                      result.Date.Second);
+                string updateScore = result.Scores.ToString() + " by " + result.PlayerName + " at " + dateSet;
 
                 // true -> save without clear file
                 using (StreamWriter file = new StreamWriter(path, true))

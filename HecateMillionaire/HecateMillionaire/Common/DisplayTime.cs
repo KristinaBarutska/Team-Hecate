@@ -19,7 +19,6 @@
         //ToDo: print the remaning time
         public static char CreateTimer(int time)
         {
-            countTimer = 10;
 
             var textTime = "";
 
@@ -27,10 +26,12 @@
             {
                 var minutes = time / 60;
                 var second = time % 60;
+                countTimer = time;
                 textTime = string.Format("{0} minutes {1} second", minutes, second);
             }
             else
             {
+                countTimer = time;
                 textTime = string.Format("{0} second", time);
             }
 

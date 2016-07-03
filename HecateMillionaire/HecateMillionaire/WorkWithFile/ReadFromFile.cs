@@ -88,9 +88,14 @@
                         var currentLine = lineStatus.Split(' ');
 
                         //take only date
-                        var lineDate = (currentLine[4] + " " + currentLine[6]).Split(new char[]{'.',' ',':'}); 
+                        var lineDate = (currentLine[4] + " " + currentLine[5]).Split(new char[]{'.',' ',':'}); 
 
-                        var currentDate = new DateTime(int.Parse(lineDate[2]), int.Parse(lineDate[1]), int.Parse(lineDate[0]), int.Parse(lineDate[3]), int.Parse(lineDate[4]), int.Parse(lineDate[5]));
+                        var currentDate = new DateTime(int.Parse(lineDate[2]), 
+                                                       int.Parse(lineDate[1]), 
+                                                       int.Parse(lineDate[0]),
+                                                       int.Parse(lineDate[3]), 
+                                                       int.Parse(lineDate[4]), 
+                                                       int.Parse(lineDate[5]));
                         //
 
                         //add in list all rezult
