@@ -3,7 +3,7 @@
     public enum JokerType
     {
         FiftyFifty,
-        HellFromPublic,
+        HelpFromPublic,
         CallFriend
     }
 }

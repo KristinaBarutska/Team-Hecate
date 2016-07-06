@@ -28,7 +28,7 @@
             get { return this.timerSeconds; }
             set
             {
-                this.timerSeconds = GameConstants.QuestionScoreLevel2;
+                this.timerSeconds = GameConstants.TimerLevel2;
             }
         }
     }

@@ -6,7 +6,7 @@
 
         void PlayGame();
 
-        bool CheckPlayerAnswer(char answer);
+        //bool CheckPlayerAnswer(char answer);
 
         void OfferJoker();
 

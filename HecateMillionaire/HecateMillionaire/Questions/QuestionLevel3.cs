@@ -31,7 +31,7 @@
             get { return this.timerSeconds; }
             set
             {
-                this.timerSeconds = GameConstants.QuestionScoreLevel3;
+                this.timerSeconds = GameConstants.TimerLevel3;
             }
         }
 

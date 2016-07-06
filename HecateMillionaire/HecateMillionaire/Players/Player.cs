@@ -8,6 +8,7 @@
     using Contracts;
     using HecateMillionaire.WorkWithFile;
     using Jokers;
+    using HecateExceptions;
 
     public class Player : IPlayer, ICloneable, IEnumerable
     {
@@ -128,13 +129,17 @@
             jokers = new List<Joker>();
 
             jokers.Add(new FiftyFiftyJoker(JokerType.FiftyFifty));
-            jokers.Add(new HelpFromPublicJoker(JokerType.HellFromPublic));
+            jokers.Add(new HelpFromPublicJoker(JokerType.HelpFromPublic));
             jokers.Add(new CallFriendJoker(JokerType.CallFriend, " "));
         }
 
         // TODO choose a joker type and call his method UseJoker()
         public bool SelectJoker(JokerType jokerType)
         {
+            //catch (InvalidJokerException ije)
+            //{
+            //    Console.WriteLine(ije.Message);
+            //}
             // what kind of joker ? - ask from the console
             switch (jokerType)
             {
@@ -142,17 +147,19 @@
 
                     if (jokers[0].IsUsed)
                     {
-                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        throw new InvalidSecondChoiceJokerException(GlobalErrorMessages.SecondTimeJokerErrorMessage,
+                                                                    jokerType);
                     }
 
                     jokers[0].UseJoker();
                     return true;
 
-                case JokerType.HellFromPublic:
+                case JokerType.HelpFromPublic:
 
                     if (jokers[1].IsUsed)
                     {
-                        throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        throw new InvalidSecondChoiceJokerException(GlobalErrorMessages.SecondTimeJokerErrorMessage,
+                                                                    jokerType);
                     }
 
                     jokers[1].UseJoker();
@@ -162,7 +169,8 @@
 
                     if (jokers[2].IsUsed)
                     {
-                        // throw new ArgumentException(GlobalErrorMessages.SecondTimeJokerErrorMessage);
+                        //throw new InvalidSecondChoiceJokerException(GlobalErrorMessages.SecondTimeJokerErrorMessage,
+                        //                                            jokerType);
                         Console.WriteLine(GlobalErrorMessages.SecondTimeJokerErrorMessage);
                         return false;
                     }

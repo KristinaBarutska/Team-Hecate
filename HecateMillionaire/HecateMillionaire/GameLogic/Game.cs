@@ -12,6 +12,7 @@
     using Jokers;
     using Players;
     using Questions;
+    using HecateExceptions;
 
     public class Game : IGame, ISound
     {
@@ -30,6 +31,7 @@
         private static int wrongAnswers;
         private static bool isSkippedQuestion;
         private static bool isUnlockJoker;
+        private static int availableJokersCount;
 
         static Game()
         {
@@ -80,13 +82,26 @@
             //questions = Game.InitializeQuestions(GameConstants.FileQuestions);
             questions = Game.InitializeQuestionsWithLevels(GameConstants.FileQuestions);
             wrongAnswers = 0;
+            availableJokersCount = 3;
 
             this.LoadMainMenu();
+        }
+
+        public void ResetGameAttributes()
+        {
+            //hide the jokers in the beginning of the game
+            //initialize again the questions deleted by FiftyFity joker
+            isUnlockJoker = false;
+            ClearJokers();
+            questions = Game.InitializeQuestionsWithLevels(GameConstants.FileQuestions);
+            availableJokersCount = 3;
         }
 
         public void PlayGame()
         {
             Console.Clear();
+            ResetGameAttributes();
+
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.BackgroundColor = ConsoleColor.Black;
 
@@ -110,7 +125,16 @@
                     if (currentQuestion.GetType().Name.Equals("QuestionLevel2"))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("BONUS!You unlock the jokers!");
+                        if (availableJokersCount > 0)
+                        {
+                            Console.WriteLine("BONUS!You unlock the jokers!");
+                            Console.WriteLine("You have {0} availabale jokers!", availableJokersCount);
+                        }
+                        else
+                        {
+                            Console.WriteLine("You don't have jokers anymore!");
+                        }
+                        
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         QuestionLevel2 currentQuestionLevel2 = currentQuestion as QuestionLevel2;
                         isUnlockJoker = true;
@@ -159,8 +183,9 @@
                     // chek for use joker
                     if (answer > '0' && answer <= '3')
                     {
-                        // for print only two answers when use FiftyFifty joker or print another joker
-                        flag = this.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers);
+                       // for print only two answers when use FiftyFifty joker or print another joker
+                       flag = this.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers);
+                       availableJokersCount--;
                     }
                     else
                     {
@@ -215,10 +240,10 @@
             this.EndGame();
         }
 
-        public bool CheckPlayerAnswer(char answer)
-        {
-            return false;
-        }
+        //public bool CheckPlayerAnswer(char answer)
+        //{
+        //    return false;
+        //}
 
         public void OfferJoker()
         {
@@ -242,60 +267,81 @@
             }
         }
 
+        private void ClearJokers()
+        {
+            var listJokers = player.Jokers;
+            for (int i = 0; i < listJokers.Count; i++)
+            {
+                listJokers[i].IsUsed = false;
+            }
+
+
+        }
+
         public bool UseJoker(char answer, int rithAnswerIndex, string[] answersOfQuestion)
         {
             bool flag = false; // for print only two answers when use FiftyFifty joker
 
-            switch (answer)
+            try
             {
-                case '1':
-                    if (player.SelectJoker(JokerType.FiftyFifty))
-                    {
-                        flag = true;
-                    }
-                    else
-                    {
-                        flag = false;
-                        Thread.Sleep(1000);
-                    }
+                switch (answer)
+                {
+                    case '1':
+                        if (player.SelectJoker(JokerType.FiftyFifty))
+                        {
+                            flag = true;
+                        }
+                        else
+                        {
+                            flag = false;
+                            Thread.Sleep(1000);
+                        }
 
-                    break;
-                case '2':
-                    if (player.SelectJoker(JokerType.HellFromPublic))
-                    {
-                        var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
+                        break;
+                    case '2':
+                        if (player.SelectJoker(JokerType.HelpFromPublic))
+                        {
+                            var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
 
-                        HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HellFromPublic);
-                        System.Console.WriteLine("\nPublic thing");
-                        System.Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
-                        Thread.Sleep(3000);
-                    }
-                    else
-                    {
-                        Thread.Sleep(1000);
-                    }
+                            HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HelpFromPublic);
+                            System.Console.WriteLine("\nPublic thing");
+                            System.Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
+                            Thread.Sleep(3000);
+                        }
+                        else
+                        {
+                            Thread.Sleep(1000);
+                        }
 
-                    break;
-                case '3':
-                    if (player.SelectJoker(JokerType.CallFriend))
-                    {
-                        var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
+                        break;
+                    case '3':
+                        if (player.SelectJoker(JokerType.CallFriend))
+                        {
+                            var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
 
-                        System.Console.WriteLine("\nWho friend you want to call!");
-                        var friendName = System.Console.ReadLine();
-                        CallFriendJoker frient = new CallFriendJoker(JokerType.CallFriend, friendName);
-                        System.Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
-                        Thread.Sleep(3000);
-                    }
-                    else
-                    {
-                        Thread.Sleep(1000);
-                    }
+                            System.Console.WriteLine("\nWho friend you want to call!");
+                            var friendName = System.Console.ReadLine();
+                            CallFriendJoker frient = new CallFriendJoker(JokerType.CallFriend, friendName);
+                            System.Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
+                            Thread.Sleep(3000);
+                        }
+                        else
+                        {
+                            Thread.Sleep(1000);
+                        }
 
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (InvalidSecondChoiceJokerException isje)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(isje.Message);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+            }
+            
 
             return flag;
         }
