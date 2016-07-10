@@ -10,5 +10,6 @@
         public const string EmptyQuestionMessage = "The question is empty";
         public const string InvalidQuestionChoiceMessage = "The right answer index has to be from 1 to 4.";
         public const string InvalidInputMessage = "Invalid input.Try again!";
+        public const string MissedFriend = "Your friend can`t be missed.";
      }
 }

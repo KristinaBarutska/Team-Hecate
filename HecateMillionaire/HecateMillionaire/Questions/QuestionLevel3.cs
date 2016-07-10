@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Common.Console;
+
     //option to use jokers and to skip one question
     public class QuestionLevel3 : QuestionLevel2
     {
@@ -44,7 +46,7 @@
             }
             else
             {
-                Console.WriteLine("This was the last question.You can't skip it");
+                Console.WriteLine(ConsoleConstants.LastQuestionMessage);
                 return questionToSkip;
             }
         }

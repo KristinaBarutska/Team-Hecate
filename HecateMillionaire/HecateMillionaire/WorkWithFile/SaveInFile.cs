@@ -1,8 +1,9 @@
 ﻿namespace HecateMillionaire.WorkWithFile
 {
-    using System.IO;
-    using Players;
     using System;
+    using System.IO;
+
+    using Players;
 
     /// <summary>
     /// Save player records on the fail.

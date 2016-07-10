@@ -2,24 +2,19 @@
 {
     using System;
 
-    using Common;
-    using Common.Console;
     using HecateExceptions;
 
     /// <summary>
     /// Display the remaining time for the question to be answered.
     /// </summary>
-    /// 
     public static class DisplayTime
     {
         private static System.Timers.Timer timer;
 
         private static int countTimer;
 
-        //ToDo: print the remaning time
         public static char CreateTimer(int time)
         {
-
             var textTime = "";
 
             if (time > 60)
@@ -36,6 +31,7 @@
             }
 
             //TODO - change the timer according to question level
+            Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine("\nYou have {0} for answer -> ... ", textTime);
 
             // Create a timer with a two second interval.
@@ -53,7 +49,7 @@
                 {
                     timer.Stop();
                     //make the choice uppercase 
-                    var answer = Char.ToUpper(Char.Parse(Console.ReadLine()));
+                    var answer = Char.ToUpper(Char.Parse(Console.ReadLine().Trim()));
 
                     try
                     {

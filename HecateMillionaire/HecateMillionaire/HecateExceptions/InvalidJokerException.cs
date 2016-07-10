@@ -2,7 +2,7 @@
 {
     using System;
 
-    class InvalidJokerException : System.Exception
+    class InvalidJokerException : Exception
     {
         public char JokerChoice { get; set; }
 

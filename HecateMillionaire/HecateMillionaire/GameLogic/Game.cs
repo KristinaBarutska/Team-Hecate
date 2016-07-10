@@ -6,25 +6,31 @@
     using System.Media;
     using System.Text;
     using System.Threading;
+    using System.Runtime.InteropServices;
 
     using Contracts;
-    using HecateMillionaire.BaseTable;
+    using BaseTable;
     using Jokers;
     using Players;
     using Questions;
     using HecateExceptions;
-
+    using Common;
+    using Common.Console;   
+    /// <summary>
+    /// 1.Start game - method to be called from Main
+    //  2.Ask for player's name and color
+    //  3.Initilize game - create player, load questions
+    //  4.Play game - show the question, ask the player for his choice, set timer
+    //  5.Check if it's correct, if it's not - game over, otherwise ask next question
+    //  6.Game offers a joker - if player can't answer in time ?
+    //  7.End of game - show player's scores, show players statistics 
+    //  8.Ask for new game
+    /// </summary>
     public class Game : IGame, ISound
     {
-        // start game - method to be called from Main
-        // ask for player's name and color
-        // initilize game - create player, load questions
-        // play game - show the question, ask the player for his choice, set timer
-        // check if it's correct, if it's not - game over, otherwise ask next question
-        // game offers a joker - if player can't answer in time ?
-        // end of game - show player's scores, show players statistics 
-        // ask for new game
-        // private static instance of the same class
+        [DllImport("user32.dll", EntryPoint = "MessageBox")]
+        public static extern int ShowMessageBox(int hWnd, string text, string caption, int type);
+
         private static readonly Game GameInstance = null;
         private static List<Question> questions;
         private static Player player;
@@ -32,6 +38,12 @@
         private static bool isSkippedQuestion;
         private static bool isUnlockJoker;
         private static int availableJokersCount;
+
+        // singleton pattern
+        // private constructor to restrict the game creation from outside
+        private Game()
+        {
+        }
 
         static Game()
         {
@@ -43,23 +55,6 @@
         {
             // return the already existing instance
             return GameInstance;
-        }
-
-        // singleton pattern
-        // private constructor to restrict the game creation from outside
-        private Game()
-        {
-        }
-
-        // methods from ISound
-        public void PlayGameOverSound()
-        {
-            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundGameOver))
-            {
-                // Use PlaySync to load and then play the sound.
-                // The program will pause until the sound is complete.
-                soundPlayer.PlaySync();
-            }
         }
 
         // methods from IGame
@@ -77,6 +72,8 @@
             LoadImage(GameConstants.FileHecateStart);
             this.PlayStartSound();
 
+            ShowMessageBox(0, "Hello to the Hecate World,\nWe wish you to become a part of us.\nGood Luck :)", "Hi player!", 0);
+
             // initialize player and questions
             player = new Player();
             //questions = Game.InitializeQuestions(GameConstants.FileQuestions);
@@ -85,6 +82,95 @@
             availableJokersCount = 3;
 
             this.LoadMainMenu();
+        }
+
+        private void LoadMainMenu()
+        {
+            string[] textInformation = new string[]
+            {
+                "Would you play a NEW GAME ?\n",
+                "Would you like to show the BEST PLAYERS ?\n",
+                "EXIT ?\n"
+            };
+
+            string[] textForChoice = new string[]
+            {
+                "\tPress 'Enter' => for Restart and play a New Game\n",
+                "\tPress 'Space' => for Close the game and see the Result\n",
+                "\tPress 'Esc' => to Exit the game"
+            };
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            ConsolePrintText.Print(textInformation);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+           // Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
+
+            ConsolePrintText.Print(textForChoice);
+            var choice = Console.ReadKey();
+
+            if (choice.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+
+                // the player don't plays for first time
+                if (!player.Name.Equals("Player"))
+                {
+                    player.Score = 0;
+                    this.PlayGame();
+                }
+                else
+                {
+                    string playerName = string.Empty;
+                    do
+                    {
+                        //if this is the first game of this player
+                        //set player and start the game
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(ConsoleConstants.PlayerNameMessage);
+
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(ConsoleConstants.PlayerName);
+
+                        Console.SetCursorPosition(Console.BufferWidth / 2 - ConsoleConstants.PlayerName.Length, 2);
+                        ClearToEndOfCurrentLine();
+
+                        Console.BackgroundColor = ConsoleColor.Black;
+
+                        playerName = Console.ReadLine().Trim();
+                        Console.Clear();
+
+                    } while (playerName.Length < 4);
+
+                    player.Name = playerName;
+                    PlayGame();
+                }
+            }
+            else if (choice.Key == ConsoleKey.Spacebar)
+            {
+                // show best players
+                this.ShowStatistics();
+                this.LoadMainMenu();
+            }
+            else if (choice.Key == ConsoleKey.Escape)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                throw new ArgumentException(GlobalErrorMessages.InvalidInputMessage);
+            }
+        }
+
+        public static void ClearToEndOfCurrentLine()
+        {
+            int currentLeft = Console.CursorLeft;
+            int currentTop = Console.CursorTop;
+            Console.Write(new string(' ', Console.WindowWidth - currentLeft));
+            Console.SetCursorPosition(currentLeft + 1, currentTop);
         }
 
         public void ResetGameAttributes()
@@ -111,7 +197,7 @@
                 char answer;
                 bool flag = false;
                 Question currentQuestion = questions[i];
-                
+
 
                 // use infinitely loop because of jokers
                 while (true)
@@ -134,7 +220,7 @@
                         {
                             Console.WriteLine("You don't have jokers anymore!");
                         }
-                        
+
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         QuestionLevel2 currentQuestionLevel2 = currentQuestion as QuestionLevel2;
                         isUnlockJoker = true;
@@ -174,7 +260,7 @@
                     {
                         this.OfferJoker(); // Print jokers
                     }
-                    
+
                     //timer for answer
                     answer = DisplayTime.CreateTimer(currentQuestion.TimerSeconds);
 
@@ -183,9 +269,9 @@
                     // chek for use joker
                     if (answer > '0' && answer <= '3')
                     {
-                       // for print only two answers when use FiftyFifty joker or print another joker
-                       flag = this.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers);
-                       availableJokersCount--;
+                        // for print only two answers when use FiftyFifty joker or print another joker
+                        flag = this.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers);
+                        availableJokersCount--;
                     }
                     else
                     {
@@ -238,6 +324,17 @@
             }
 
             this.EndGame();
+        }
+
+        // methods from ISound
+        public void PlayGameOverSound()
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer(GameConstants.SoundGameOver))
+            {
+                // Use PlaySync to load and then play the sound.
+                // The program will pause until the sound is complete.
+                soundPlayer.PlaySync();
+            }
         }
 
         //public bool CheckPlayerAnswer(char answer)
@@ -341,7 +438,7 @@
                 Console.WriteLine(isje.Message);
                 Console.ForegroundColor = ConsoleColor.Magenta;
             }
-            
+
 
             return flag;
         }
@@ -372,11 +469,11 @@
                 LoadImage(GameConstants.FileGameOver);
                 this.PlayGameOverSound();
 
-                var currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2)-5;
+                var currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2) - 5;
                 Console.Write(new string(' ', currentCol));
 
                 // Console.WriteLine("\n\tDo you want to try another game?\n");
-                Console.WriteLine("You have win {0} lv but you're not THE CHAMPION",player.Score);
+                Console.WriteLine("You have win {0} lv but you're not THE CHAMPION", player.Score);
                 currentCol = (Console.WindowWidth / 2) - (textLose.Length / 2);
                 Console.Write(new string(' ', currentCol));
                 Console.WriteLine(textLose);
@@ -399,84 +496,9 @@
 
         public void RestartGame()
         {
-           this.StartGame();
+            this.StartGame();
         }
 
-        private void LoadMainMenu()
-        {
-            string[] textInformation = new string[]
-            {
-                "START NEW GAME ?  =>> \n",
-                "SHOW BEST PLAYERS ?  =>>\n",
-                "EXIT ?  =>>\n"
-            };
-
-            string[] textForChoise = new string[]
-            {
-                "\tPress 'Enter' => for restart and play a new game\n",
-                "\tPress 'Space' for close the game and see the result\n",
-                "\tPress 'Esc' to close the game."
-            };
-
-            Console.ForegroundColor = ConsoleColor.White;
-
-            ConsolePrintText.Print(textInformation);
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine();
-
-            ConsolePrintText.Print(textForChoise);
-            var choice = Console.ReadKey();
-
-            if (choice.Key == ConsoleKey.Enter)
-            {
-                Console.Clear();
-
-                // the player don't plays for first time
-                if (!player.Name.Equals("Player"))
-                {
-                    player.Score = 0;
-                    this.PlayGame();
-                }
-                else
-                {
-                    string playerName = string.Empty;
-                    do
-                    {
-                        //if this is the first game of this player
-                        //set player and start the game
-                        Console.ForegroundColor = ConsoleColor.Red;
-
-                        Console.WriteLine("Player name must be at least 4 symbols\n");
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = ConsoleColor.Red;
-
-                        Console.WriteLine("What's your name?  =>>");
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        playerName = Console.ReadLine();
-
-                    } while (playerName.Length < 4);
-
-                    player.Name = playerName;
-                    PlayGame();
-                }
-            }
-            else if (choice.Key == ConsoleKey.Spacebar)
-            {
-                // show best players
-                this.ShowStatistics();
-                this.LoadMainMenu();
-            }
-            else if (choice.Key == ConsoleKey.Escape)
-            {
-                Environment.Exit(0);
-            }
-            else
-            {
-                throw new ArgumentException("Invalid choice.Try again!");
-            }
-        }
 
         // helper methods
         private static List<Question> InitializeQuestions(string file)
@@ -559,7 +581,7 @@
                     question = new QuestionLevel2(questionText, answers, indexRightQuestion - 1);
                 }
                 //lelev3
-                else 
+                else
                 {
                     question = new QuestionLevel3(questionText, answers, indexRightQuestion - 1);
                 }

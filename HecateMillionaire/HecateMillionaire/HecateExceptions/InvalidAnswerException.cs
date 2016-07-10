@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class InvalidAnswerException : System.Exception
+    public class InvalidAnswerException : Exception
     {
         public char AnswerChoice { get; set; }
 

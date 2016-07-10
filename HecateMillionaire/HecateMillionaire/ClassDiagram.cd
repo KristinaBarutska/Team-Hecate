@@ -10,45 +10,37 @@
   <Class Name="HecateMillionaire.TheBestThreePlayers">
     <Position X="8" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAgAAAAA=</HashCode>
       <FileName>WorkWithFile\TheBestThreePlayers.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HecateMillionaire.WorkWithFile.ReadFromFile">
     <Position X="4.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>WorkWithFile\ReadFromFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HecateMillionaire.WorkWithFile.SaveInFile">
     <Position X="6.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>WorkWithFile\SaveInFile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HecateMillionaire.IsRight">
+  <Class Name="HecateMillionaire.QuestionChecker">
     <Position X="16.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAACAAAAgAAAAI=</HashCode>
-      <FileName>Questions\IsRight.cs</FileName>
+      <FileName>Questions\QuestionChecker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HecateMillionaire.Questions.Question">
     <Position X="0.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAIAAEgAAAAIAACABAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAFAAAAAAAIAAEgAAAAIAACABAAAAAQAAAAAAAABA=</HashCode>
       <FileName>Questions\Question.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="HecateMillionaire.Players.Player">
-    <Position X="9.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>BAAAgAAAAAAAABgEAAAIAAQAAAAEQAIAAACCwAAAAFA=</HashCode>
-      <FileName>Players\Player.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HecateMillionaire.Jokers.CallFriendJoker">
     <Position X="2.5" Y="1" Width="1.5" />
@@ -81,7 +73,7 @@
   <Class Name="HecateMillionaire.GameLogic.Game" BaseTypeListCollapsed="true">
     <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAgAQMAAAAEAIBAEAQFAAgBAQoEAARAQAAAAAQgAA=</HashCode>
+      <HashCode>ACAAgAYFAAAEEgIBAEAQFAggBAQoEAARAQBAAAAQgAA=</HashCode>
       <FileName>GameLogic\Game.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -89,7 +81,7 @@
   <Class Name="HecateMillionaire.GameConstants" Collapsed="true">
     <Position X="2.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAYAAAABAAAoAAAAAAAQIgAQAAAAAAAAAAIEAAIAgA=</HashCode>
+      <HashCode>AAAYAAAAJAAAoAAAAAAAQggAQAAQAAAAAgAIBOAIAgA=</HashCode>
       <FileName>GameLogic\GameConstants.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -110,22 +102,22 @@
   <Class Name="HecateMillionaire.BaseTable.DisplayTime">
     <Position X="13.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAIAAAAAABAAIAAAAAAAAAAAABAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAABAAIAAAAAAAAAAAABAA=</HashCode>
       <FileName>Common\DisplayTime.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HecateMillionaire.Common.GlobalErrorMessages" Collapsed="true">
     <Position X="18" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIQAAACAEAAAAAAAAAAAAAAAQCAAAAAAAAAAgAAAI=</HashCode>
+      <HashCode>AAAIQAAACAEAAAAAAAAAAAAAAAQCAAAAAAAAAAoAAAI=</HashCode>
       <FileName>Common\GlobalErrorMessages.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HecateMillionaire.BaseTable.Screen">
-    <Position X="18" Y="5" Width="1.5" />
+  <Class Name="HecateMillionaire.Players.Player">
+    <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>BaseTable\Screen.cs</FileName>
+      <HashCode>BAAAgAAAAAAAABgEAAAIAAQAAAAEQAIAAACCwAAAAFA=</HashCode>
+      <FileName>Players\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -139,7 +131,7 @@
   <Interface Name="HecateMillionaire.GameLogic.Contracts.IGame">
     <Position X="13.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQIAAAAAAIBAAAQAAAAAAAAAAAAAAAAAAAQgAA=</HashCode>
+      <HashCode>AAAAAAQAAAAAAAIBAAAQAAAAAAAAAAAAAAAAAAAQgAA=</HashCode>
       <FileName>GameLogic\Contracts\IGame.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -150,21 +142,14 @@
       <FileName>GameLogic\Contracts\ISound.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="HecateMillionaire.BaseTable.Contracts.IScreen">
-    <Position X="18" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>BaseTable\Contracts\IScreen.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Enum Name="HecateMillionaire.Jokers.JokerType">
+  <Enum Name="HecateMillionaire.Jokers.JokerType" Collapsed="true">
     <Position X="2.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAQAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Jokers\JokerType.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="HecateMillionaire.Common.WordsColorType">
+  <Enum Name="HecateMillionaire.Common.WordsColorType" Collapsed="true">
     <Position X="1" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAgAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>

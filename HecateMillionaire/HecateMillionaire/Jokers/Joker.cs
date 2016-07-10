@@ -3,8 +3,6 @@
     // abstract class Joker - base class for the other jokers 
     public abstract class Joker
     {
-        // To Do: get text from the Joker propery and print
-
         // Can be invoked only one time 
         private JokerType type;
 

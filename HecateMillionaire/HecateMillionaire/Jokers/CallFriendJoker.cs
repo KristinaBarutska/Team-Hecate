@@ -1,6 +1,8 @@
 ﻿namespace HecateMillionaire.Jokers
-{
+{   
     using System;
+
+    using Common;
 
     public class CallFriendJoker : Joker
     {
@@ -22,7 +24,7 @@
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException("Friend name can't be empty");
+                    throw new ArgumentNullException(GlobalErrorMessages.MissedFriend);
                 }
                 else
                 {
@@ -40,7 +42,7 @@
         {
             // generate response
             // use joker call friend
-            string[] responses = new string[] { "Sorry,I don't know the answer but you can try ", "I'm sure the correct answer is ", "I'm not sure but I think the answer is " };
+            string[] responses = new string[] { "Sorry,I don't know the answer but you can try: ", "I'm sure the correct answer is: ", "I'm not sure but I think the answer is: " };
             string response = string.Empty;
 
             // if used FiftyFifty joker

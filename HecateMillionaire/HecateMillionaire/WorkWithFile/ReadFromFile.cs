@@ -1,9 +1,10 @@
 ﻿namespace HecateMillionaire.WorkWithFile
 {
-    using HecateMillionaire.Players;
     using System;
     using System.Collections.Generic;
     using System.IO;
+
+    using Players;
 
     public static class ReadFromFile
     {
@@ -88,15 +89,14 @@
                         var currentLine = lineStatus.Split(' ');
 
                         //take only date
-                        var lineDate = (currentLine[4] + " " + currentLine[5]).Split(new char[]{'.',' ',':'}); 
+                        var lineDate = (currentLine[4] + " " + currentLine[5]).Split(new char[] { '.', ' ', ':' });
 
-                        var currentDate = new DateTime(int.Parse(lineDate[2]), 
-                                                       int.Parse(lineDate[1]), 
+                        var currentDate = new DateTime(int.Parse(lineDate[2]),
+                                                       int.Parse(lineDate[1]),
                                                        int.Parse(lineDate[0]),
-                                                       int.Parse(lineDate[3]), 
-                                                       int.Parse(lineDate[4]), 
+                                                       int.Parse(lineDate[3]),
+                                                       int.Parse(lineDate[4]),
                                                        int.Parse(lineDate[5]));
-                        //
 
                         //add in list all rezult
                         resluts.Add(new PlayerResult(currentLine[2], int.Parse(currentLine[0]), currentDate));

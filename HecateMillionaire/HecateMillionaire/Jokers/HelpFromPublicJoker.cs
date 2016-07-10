@@ -6,9 +6,9 @@
     public class HelpFromPublicJoker : Joker
     {
         /// <summary>
-        /// 
+        /// Get a joker from public.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">HelpFromPublic</param>
         public HelpFromPublicJoker(JokerType type)
             : base(type)
         {

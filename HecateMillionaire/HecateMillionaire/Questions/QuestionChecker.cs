@@ -1,7 +1,6 @@
 ﻿namespace HecateMillionaire
 {
-    using System;
-    using HecateMillionaire.Questions;
+    using Questions;
 
     public class QuestionChecker
     {

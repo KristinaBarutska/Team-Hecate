@@ -19,7 +19,6 @@
         public override string ToString()
         {
             var result = new StringBuilder();
-
             result.AppendFormat("Score {0} by {1} at {2}", this.Scores, this.PlayerName, this.Date);
 
             return result.ToString();

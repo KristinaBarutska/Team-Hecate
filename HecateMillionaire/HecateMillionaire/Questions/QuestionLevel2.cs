@@ -1,7 +1,5 @@
 ﻿namespace HecateMillionaire.Questions
 {
-    using System;
-
     //option to use jokers - they are unlocked and player can and use them
     public class QuestionLevel2 : QuestionLevel1
     {

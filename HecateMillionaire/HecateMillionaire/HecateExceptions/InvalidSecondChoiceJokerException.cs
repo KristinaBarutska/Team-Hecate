@@ -1,9 +1,10 @@
 ﻿namespace HecateMillionaire.HecateExceptions
 {
     using System;
+
     using Jokers;
 
-    public class InvalidSecondChoiceJokerException : System.Exception
+    public class InvalidSecondChoiceJokerException : Exception
     {
         public JokerType Joker { get; set; }
 

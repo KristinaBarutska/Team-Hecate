@@ -5,8 +5,8 @@
     using System.Collections.Generic;
 
     using Common;
-    using Contracts;
-    using HecateMillionaire.WorkWithFile;
+    using Players.Contracts;
+    using WorkWithFile;
     using Jokers;
     using HecateExceptions;
 
@@ -17,9 +17,6 @@
         private int wordsColorType;
         private List<Joker> jokers;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public Player() : this("Player")
         {
         }
@@ -39,13 +36,7 @@
             this.InitelisateJoker();
         }
 
-        public WordsColorType Color
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public WordsColorType Color { get; private set; }
 
         public List<Joker> Jokers
         {
@@ -64,6 +55,7 @@
             {
                 if (value.Length < 4)
                 {
+
                     throw new ArgumentException(GlobalErrorMessages.InvalidPlayerNameErrorMessage);
                 }
                 else
@@ -104,7 +96,7 @@
             {
                 if (value < 1 && value >= 4)
                 {
-                    throw new ArgumentException(GlobalErrorMessages.InvalidWordsColorChoiceErrorMessage);
+                    throw new IndexOutOfRangeException(GlobalErrorMessages.InvalidWordsColorChoiceErrorMessage);
                 }
 
                 this.wordsColorType = value;
@@ -117,7 +109,6 @@
         }
 
         // methods from IPlayer
-
         // the player give up - take the money earned in the game
         public int StopGameAndTakeMoney()
         {

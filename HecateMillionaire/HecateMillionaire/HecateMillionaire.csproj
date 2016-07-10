@@ -41,12 +41,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VsWebSite.Interop, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Console\ConsolePrintText.cs" />
-    <Compile Include="BaseTable\Contracts\IScreen.cs" />
     <Compile Include="Common\DisplayTime.cs" />
-    <Compile Include="BaseTable\Screen.cs" />
     <Compile Include="Common\Console\ConsoleConstants.cs" />
     <Compile Include="Common\GlobalErrorMessages.cs" />
     <Compile Include="Common\WordsColorType.cs" />

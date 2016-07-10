@@ -2,10 +2,9 @@
 {
     using System;
     using System.Linq;
-    using System.Collections.Generic;
+
     using Common.Console;
     using WorkWithFile;
-    using HecateMillionaire.Players;
 
     /// <summary>
     /// Print the top three players with the best score.
@@ -16,7 +15,7 @@
         /// <summary>
         /// Show the player record.
         /// </summary>
-        /// <param name="nameOfPlayer"></param>
+        /// <param name="nameOfPlayer">Player name</param>
         /// 
         public static void ShowRecord(string nameOfPlayer)
         {
