@@ -5,9 +5,9 @@ Team members => Kristina.Barutska, Veselin93, cyberbox, desislavaaaa
 The URL of Git repository => https://github.com/KristinaBarutska/Team-Hecate
 
 Project purpose:
- We built a game of type: questions and answers.In the first time user must choose his player name.
+We built a game of type: questions and answers.In the first time user must choose his player name.
  After that he gets a lots of questions and he must give his answer (a, b, c or d).If he answered correctly he gets 100 score +.
- If he have passed more than 3 answeres he gets Bonus Joker types: FiftyFifty, CallFriend, PublicJoker and can gets Bonus joker: Skepped question.
- If he answered wrong 3 more times the game has stoped for him => Game Over time.Else he didn`t won tha game,
+ If he have passed more than 3 answers he gets Bonus Joker types: FiftyFifty, CallFriend, PublicJoker and can gets Bonus joker: Skepe question.
+ If he answered wrong 3 more times the game has stopped for him => Game Over time.Else he did not won the game,
  but has a good experience like Hecate boy :)
  The purpose is player to answered correctly to all questions, no exceptions!And player to be happy,of course :)
