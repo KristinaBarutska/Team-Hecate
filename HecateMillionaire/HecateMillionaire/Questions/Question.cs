@@ -1,6 +1,7 @@
 ﻿namespace HecateMillionaire.Questions
 {
     using System;
+    using Contracts;
 
     public class Question
     {

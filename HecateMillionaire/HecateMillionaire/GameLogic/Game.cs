@@ -238,6 +238,14 @@
                             Console.Write(ConsoleConstants.SkipeMessage);
                             var skipChoice = Char.Parse(Console.ReadLine());
 
+                            do
+                            {
+                                Console.WriteLine(ConsoleConstants.InvalidSkipChoice);
+                                Console.Write(ConsoleConstants.SkipeMessage);
+                                skipChoice = Char.Parse(Console.ReadLine());
+                            }
+                            while ((skipChoice != 'y' && skipChoice != 'Y') && (skipChoice != 'n' && skipChoice != 'N'));
+
                             if (skipChoice == 'y' || skipChoice == 'Y')
                             {
                                 Console.Clear();

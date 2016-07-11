@@ -1,7 +1,9 @@
 ﻿namespace HecateMillionaire.Jokers
 {
+    using Contracts;
+
     // abstract class Joker - base class for the other jokers 
-    public abstract class Joker
+    public abstract class Joker : IJoker
     {
         // Can be invoked only one time 
         private JokerType type;

@@ -8,6 +8,7 @@
     using Players.Contracts;
     using WorkWithFile;
     using Jokers;
+    using Jokers.Contracts;
     using HecateExceptions;
 
     public class Player : IPlayer, ICloneable, IEnumerable
@@ -15,7 +16,7 @@
         private string name;
         private int scores;
         private int wordsColorType;
-        private List<Joker> jokers;
+        private IList<IJoker> jokers;
 
         public Player() : this("Player")
         {
@@ -38,7 +39,7 @@
 
         public WordsColorType Color { get; private set; }
 
-        public List<Joker> Jokers
+        public IList<IJoker> Jokers
         {
             get { return this.jokers; }
             set { this.jokers = value; }
@@ -117,7 +118,7 @@
 
         private void InitelisateJoker()
         {
-            jokers = new List<Joker>();
+            jokers = new List<IJoker>();
 
             jokers.Add(new FiftyFiftyJoker(JokerType.FiftyFifty));
             jokers.Add(new HelpFromPublicJoker(JokerType.HelpFromPublic));

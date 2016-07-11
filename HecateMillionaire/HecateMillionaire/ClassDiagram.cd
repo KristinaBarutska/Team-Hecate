@@ -69,11 +69,12 @@
       <HashCode>BAAAAAAEAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Jokers\Joker.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HecateMillionaire.GameLogic.Game" BaseTypeListCollapsed="true">
     <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAgAYFAAAEEgIBAEAQFAggBAQoEAARAQBAAAAQgAA=</HashCode>
+      <HashCode>ACAAgAcFAAAEEgIBAMAQFAggBAQoEAARAQBAAAAQgAA=</HashCode>
       <FileName>GameLogic\Game.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -86,9 +87,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HecateMillionaire.Common.Console.ConsoleConstants" Collapsed="true">
-    <Position X="1" Y="5.5" Width="1.5" />
+    <Position X="2.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAACEAABAAAAAAAAAAAAAAAAAIAAAAQAA=</HashCode>
+      <HashCode>EgEiAABAAAAAACEACBAAAAIAAACAAgAAAIAIIAIAQAA=</HashCode>
       <FileName>Common\Console\ConsoleConstants.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -124,7 +125,7 @@
   <Interface Name="HecateMillionaire.Players.Contracts.IPlayer">
     <Position X="8" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAAAAAQAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAAAAAQAAAAAAAgAAAAEA=</HashCode>
       <FileName>Players\Contracts\IPlayer.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -142,6 +143,13 @@
       <FileName>GameLogic\Contracts\ISound.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="HecateMillionaire.Questions.Contracts.IQuestion">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAgAAAAIAACAAAAAAAQAAAAAAAABA=</HashCode>
+      <FileName>Questions\Contracts\IQuestion.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="HecateMillionaire.Jokers.JokerType" Collapsed="true">
     <Position X="2.75" Y="4" Width="1.5" />
     <TypeIdentifier>
@@ -150,7 +158,7 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="HecateMillionaire.Common.WordsColorType" Collapsed="true">
-    <Position X="1" Y="4" Width="1.5" />
+    <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAgAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Common\WordsColorType.cs</FileName>

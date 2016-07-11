@@ -58,7 +58,9 @@
     <Compile Include="HecateExceptions\InvalidAnswerException.cs" />
     <Compile Include="HecateExceptions\InvalidJokerException.cs" />
     <Compile Include="HecateExceptions\InvalidSecondChoiceJokerException.cs" />
+    <Compile Include="Jokers\Contracts\IJoker.cs" />
     <Compile Include="Players\PlayerResult.cs" />
+    <Compile Include="Questions\Contracts\IQuestion.cs" />
     <Compile Include="Questions\QuestionChecker.cs" />
     <Compile Include="Jokers\CallFriendJoker.cs" />
     <Compile Include="Jokers\FiftyFiftyJoker.cs" />
@@ -101,6 +103,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -21,5 +21,6 @@
         public const string PublicVoteMessage = "Public thing: ";
         public const string CallFriendMessage = "Who friend you want to call!";
         public const string SkipeMessage = "Do you want to skip this question? ==> Press 'Y' for yes or 'N' for no :";
+        public const string InvalidSkipChoice = "Invalid choice for skipping";
     }
 }
