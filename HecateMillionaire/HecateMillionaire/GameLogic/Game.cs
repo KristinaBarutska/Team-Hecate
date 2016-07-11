@@ -476,6 +476,7 @@
                 Console.Write(new string(' ', currentCol));
                 Console.WriteLine(textLose);
             }
+
             player.GameOver();
 
             this.LoadMainMenu();
