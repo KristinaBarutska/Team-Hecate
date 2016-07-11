@@ -63,7 +63,7 @@
 
             // take max number
             var maxpercent = Math.Max(Math.Max(percent[0], percent[1]), Math.Max(percent[2], percent[3]));
-             
+
             // move max number to right place
             for (int i = 0; i < percent.Length; i++)
             {
@@ -77,6 +77,7 @@
             }
 
             // Formating print answer
+            Console.ForegroundColor = ConsoleColor.White;
             resoult.AppendFormat("{0}% ", percent[0]);
             resoult.AppendFormat(" {0}% ", percent[1]);
             resoult.AppendFormat(" {0}% ", percent[2]);
@@ -91,6 +92,7 @@
             resoult.Append("    B");
             resoult.Append("   C");
             resoult.Append("    D \n");
+            Console.ResetColor();
 
             return resoult.ToString();
         }

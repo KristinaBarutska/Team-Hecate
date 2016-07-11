@@ -15,7 +15,7 @@
 
         public static char CreateTimer(int time)
         {
-            var textTime = "";
+            var textTime = string.Empty;
 
             if (time > 60)
             {
@@ -33,6 +33,7 @@
             //TODO - change the timer according to question level
             Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine("\nYou have {0} for answer -> ... ", textTime);
+            Console.ResetColor();
 
             // Create a timer with a two second interval.
             timer = new System.Timers.Timer(1000);
@@ -66,9 +67,9 @@
                             default:
                                 //make red color for warning
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine();
                                 timer.Start();
                                 //invalid answer choice
+
                                 if (Char.IsLetter(answer))
                                 {
                                     throw new InvalidAnswerException(String.Format("Enter a letter A,B,C or D.\n{0} is not valid answer.", answer), answer);
@@ -102,7 +103,6 @@
                     }
                 }
             }
-
         }
 
         private static void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)

@@ -11,7 +11,7 @@
     public static class SaveInFile
     {
         public static void SetFileRekord(int scorePlayer, string namePlayer)
-        { 
+        {
             string path = @"..\..\Record.txt";
 
             FileStream checkFile;
@@ -28,7 +28,7 @@
                 string updateScore = scorePlayer.ToString() + " by " + namePlayer;
 
                 // true -> save without clear file
-                using (StreamWriter file = new StreamWriter(path, true)) 
+                using (StreamWriter file = new StreamWriter(path, true))
                 {
                     file.WriteLine(updateScore);
                 }
@@ -58,6 +58,7 @@
                                                                       result.Date.Hour,
                                                                       result.Date.Minute,
                                                                       result.Date.Second);
+
                 string updateScore = result.Scores.ToString() + " by " + result.PlayerName + " at " + dateSet;
 
                 // true -> save without clear file

@@ -95,9 +95,9 @@
 
             string[] textForChoice = new string[]
             {
-                "\tPress 'Enter' => for Restart and play a New Game\n",
-                "\tPress 'Space' => for Close the game and see the Result\n",
-                "\tPress 'Esc' => to Exit the game"
+                "Press 'Enter' => for Restart and play a New Game",
+                "Press 'Space' => for Close the game and see the Result",
+                "Press 'Esc' => to Exit the game"
             };
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -105,8 +105,8 @@
             ConsolePrintText.Print(textInformation);
 
             Console.ForegroundColor = ConsoleColor.Red;
-           // Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.Black;
+           // Console.WriteLine();
 
             ConsolePrintText.Print(textForChoice);
             var choice = Console.ReadKey();
@@ -135,7 +135,7 @@
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(ConsoleConstants.PlayerName);
 
-                        Console.SetCursorPosition(Console.BufferWidth / 2 - ConsoleConstants.PlayerName.Length, 2);
+                        Console.SetCursorPosition(Console.BufferWidth / 2 - ConsoleConstants.PlayerName.Length, 1);
                         ClearToEndOfCurrentLine();
 
                         Console.BackgroundColor = ConsoleColor.Black;
@@ -213,12 +213,12 @@
                         Console.ForegroundColor = ConsoleColor.Red;
                         if (availableJokersCount > 0)
                         {
-                            Console.WriteLine("BONUS!You unlock the jokers!");
+                            Console.WriteLine(ConsoleConstants.BonusJokerMessage);
                             Console.WriteLine("You have {0} availabale jokers!", availableJokersCount);
                         }
                         else
                         {
-                            Console.WriteLine("You don't have jokers anymore!");
+                            Console.WriteLine(ConsoleConstants.NoJokerMessage);
                         }
 
                         Console.ForegroundColor = ConsoleColor.Magenta;
@@ -232,10 +232,10 @@
                         if (!isSkippedQuestion)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("BONUS!You can skip one question!");
+                            Console.WriteLine(ConsoleConstants.BonusSkippedMessage);
                             Console.ForegroundColor = ConsoleColor.Magenta;
 
-                            Console.Write("Do you want to skip this question - y/n :");
+                            Console.Write(ConsoleConstants.SkipeMessage);
                             var skipChoice = Char.Parse(Console.ReadLine());
 
                             if (skipChoice == 'y' || skipChoice == 'Y')
@@ -248,7 +248,7 @@
                                 //print next question
                                 Console.Clear(); //clear console
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Next question :");
+                                Console.WriteLine(ConsoleConstants.NextQuestionMessage);
                                 Console.ForegroundColor = ConsoleColor.Magenta;
                                 Console.WriteLine(currentQuestionLevel3);
                                 Console.WriteLine(currentQuestionLevel3.PrintAnswers(flag)); //print answers
@@ -287,8 +287,8 @@
                 QuestionChecker checker = new QuestionChecker(currentQuestion, answer);
                 if (checker.Tell())
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Your answer is true");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(ConsoleConstants.RightAnswerMessage);
                     this.PlayCorrectSound();
 
                     // Add 100 scores if the answaer is right
@@ -301,7 +301,7 @@
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You are wrong");
+                    Console.WriteLine(ConsoleConstants.WrongAnswerMessage);
                     this.PlayWrongSound();
                     wrongAnswers++;
                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -311,7 +311,7 @@
                     if (wrongAnswers == GameConstants.MaxWrongAnswers)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("You have 3 wrong answers !");
+                        Console.WriteLine(ConsoleConstants.ThreeWrongAnswersMessage);
                         Thread.Sleep(500);
                         break;
                     }
@@ -347,19 +347,19 @@
             var listJoker = player.Jokers;
 
             Console.WriteLine();
-            Console.WriteLine("Jokers:");
+            Console.WriteLine(ConsoleConstants.JokersMessage);
 
             for (int j = 0; j < listJoker.Count; j++)
             {
                 if (listJoker[j].IsUsed != true)
                 {
-                    System.Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
+                    Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
                 }
                 else
                 {
-                    System.Console.BackgroundColor = ConsoleColor.Cyan;
-                    System.Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
-                    System.Console.BackgroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(j + 1 + " -> " + listJoker[j].Type);
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
         }
@@ -371,8 +371,6 @@
             {
                 listJokers[i].IsUsed = false;
             }
-
-
         }
 
         public bool UseJoker(char answer, int rithAnswerIndex, string[] answersOfQuestion)
@@ -401,8 +399,8 @@
                             var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
 
                             HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HelpFromPublic);
-                            System.Console.WriteLine("\nPublic thing");
-                            System.Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
+                            Console.WriteLine(ConsoleConstants.PublicVoteMessage);
+                            Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
                             Thread.Sleep(3000);
                         }
                         else
@@ -416,10 +414,10 @@
                         {
                             var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
 
-                            System.Console.WriteLine("\nWho friend you want to call!");
-                            var friendName = System.Console.ReadLine();
+                            Console.WriteLine(ConsoleConstants.CallFriendMessage);
+                            var friendName = Console.ReadLine();
                             CallFriendJoker frient = new CallFriendJoker(JokerType.CallFriend, friendName);
-                            System.Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
+                            Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
                             Thread.Sleep(3000);
                         }
                         else
@@ -463,7 +461,7 @@
             }
             else
             {
-                string textLose = "Do you want to try another game?\n";
+                string textLose = ConsoleConstants.LostTextMessage;
 
                 Console.Clear();
                 LoadImage(GameConstants.FileGameOver);
