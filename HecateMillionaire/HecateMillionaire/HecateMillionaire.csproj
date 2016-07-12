@@ -59,6 +59,7 @@
     <Compile Include="HecateExceptions\InvalidJokerException.cs" />
     <Compile Include="HecateExceptions\InvalidSecondChoiceJokerException.cs" />
     <Compile Include="Jokers\Contracts\IJoker.cs" />
+    <Compile Include="Jokers\JokerUse.cs" />
     <Compile Include="Players\PlayerResult.cs" />
     <Compile Include="Questions\Contracts\IQuestion.cs" />
     <Compile Include="Questions\QuestionChecker.cs" />

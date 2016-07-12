@@ -195,7 +195,7 @@
             for (int i = 0; i < questions.Count; i++)
             {
                 char answer;
-                bool flag = false;
+                bool flagForPrintAnswers = false;
                 Question currentQuestion = questions[i];
 
 
@@ -205,7 +205,7 @@
                     Console.Clear(); // clear console
 
                     Console.WriteLine(currentQuestion);
-                    Console.WriteLine(currentQuestion.PrintAnswers(flag)); // print answers
+                    Console.WriteLine(currentQuestion.PrintAnswers(flagForPrintAnswers)); // print answers
 
                     //check for level
                     if (currentQuestion.GetType().Name.Equals("QuestionLevel2"))
@@ -259,12 +259,12 @@
                                 Console.WriteLine(ConsoleConstants.NextQuestionMessage);
                                 Console.ForegroundColor = ConsoleColor.Magenta;
                                 Console.WriteLine(currentQuestionLevel3);
-                                Console.WriteLine(currentQuestionLevel3.PrintAnswers(flag)); //print answers
+                                Console.WriteLine(currentQuestionLevel3.PrintAnswers(flagForPrintAnswers)); //print answers
                             }
                         }
                     }
 
-                    if (isUnlockJoker)
+                    if (isUnlockJoker && availableJokersCount != 0)
                     {
                         this.OfferJoker(); // Print jokers
                     }
@@ -278,7 +278,7 @@
                     if (answer > '0' && answer <= '3')
                     {
                         // for print only two answers when use FiftyFifty joker or print another joker
-                        flag = this.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers);
+                        flagForPrintAnswers = JokerUse.UseJoker(answer, currentQuestion.RightAnswerIndex, currentQuestion.Answers, player);
                         availableJokersCount--;
                     }
                     else
@@ -345,11 +345,6 @@
             }
         }
 
-        //public bool CheckPlayerAnswer(char answer)
-        //{
-        //    return false;
-        //}
-
         public void OfferJoker()
         {
             var listJoker = player.Jokers;
@@ -379,74 +374,6 @@
             {
                 listJokers[i].IsUsed = false;
             }
-        }
-
-        public bool UseJoker(char answer, int rithAnswerIndex, string[] answersOfQuestion)
-        {
-            bool flag = false; // for print only two answers when use FiftyFifty joker
-
-            try
-            {
-                switch (answer)
-                {
-                    case '1':
-                        if (player.SelectJoker(JokerType.FiftyFifty))
-                        {
-                            flag = true;
-                        }
-                        else
-                        {
-                            flag = false;
-                            Thread.Sleep(1000);
-                        }
-
-                        break;
-                    case '2':
-                        if (player.SelectJoker(JokerType.HelpFromPublic))
-                        {
-                            var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
-
-                            HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HelpFromPublic);
-                            Console.WriteLine(ConsoleConstants.PublicVoteMessage);
-                            Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
-                            Thread.Sleep(3000);
-                        }
-                        else
-                        {
-                            Thread.Sleep(1000);
-                        }
-
-                        break;
-                    case '3':
-                        if (player.SelectJoker(JokerType.CallFriend))
-                        {
-                            var fiftyFifty = player.Jokers[0]; // if used FiftyFifty joker
-
-                            Console.WriteLine(ConsoleConstants.CallFriendMessage);
-                            var friendName = Console.ReadLine();
-                            CallFriendJoker frient = new CallFriendJoker(JokerType.CallFriend, friendName);
-                            Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
-                            Thread.Sleep(3000);
-                        }
-                        else
-                        {
-                            Thread.Sleep(1000);
-                        }
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-            catch (InvalidSecondChoiceJokerException isje)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(isje.Message);
-                Console.ForegroundColor = ConsoleColor.Magenta;
-            }
-
-
-            return flag;
         }
 
         public void EndGame()
@@ -504,44 +431,6 @@
         public void RestartGame()
         {
             this.StartGame();
-        }
-
-
-        // helper methods
-        private static List<Question> InitializeQuestions(string file)
-        {
-            // read text file
-            StreamReader reader = new StreamReader(file);
-            StringBuilder text = new StringBuilder();
-            using (reader)
-            {
-                string line = reader.ReadLine();
-                while (line != null)
-                {
-                    text.Append(line);
-                    text.Append(Environment.NewLine);
-                    line = reader.ReadLine();
-                }
-            }
-
-            // parse text to questions
-            string[] questions = text.ToString().Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
-
-            List<Question> questionsList = new List<Question>();
-            for (int i = 0; i < questions.Length; i++)
-            {
-                string[] currentQuestion = questions[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                string questionText = currentQuestion[0];
-                string answersStr = currentQuestion[1];
-                int indexRightQuestion = int.Parse(currentQuestion[2]);
-
-                string[] answers = answersStr.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
-
-                Question question = new Question(questionText, answers, indexRightQuestion - 1);
-
-                questionsList.Add(question);
-            }
-            return questionsList;
         }
 
         private static List<Question> InitializeQuestionsWithLevels(string file)
@@ -664,5 +553,6 @@
                 + GameConstants.NumberOfQuestionPerLevel * GameConstants.QuestionScoreLevel3;
             return maxScore;
         }
+
     }
 }
