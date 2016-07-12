@@ -42,7 +42,7 @@
         {
             // generate response
             // use joker call friend
-            string[] responses = new string[] { "Sorry,I don't know the answer but you can try: ", "I'm sure the correct answer is: ", "I'm not sure but I think the answer is: " };
+            string[] responses = new string[] { "Sorry, I don't know the answer but you can try: ", "I'm sure the correct answer is: ", "I'm not sure but I think the answer is: " };
             string response = string.Empty;
 
             // if used FiftyFifty joker
