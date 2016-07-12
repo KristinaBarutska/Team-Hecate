@@ -43,7 +43,7 @@ namespace HecateMillionaire.Jokers
                             HelpFromPublicJoker help = new HelpFromPublicJoker(JokerType.HelpFromPublic);
                             Console.WriteLine(ConsoleConstants.PublicVoteMessage);
                             Console.WriteLine(help.Mind(rithAnswerIndex, fiftyFifty.IsUsed, answersOfQuestion));
-                            Thread.Sleep(3000);
+                            Thread.Sleep(3500);
                         }
                         else
                         {
@@ -60,7 +60,7 @@ namespace HecateMillionaire.Jokers
                             var friendName = Console.ReadLine();
                             CallFriendJoker frient = new CallFriendJoker(JokerType.CallFriend, friendName);
                             Console.WriteLine("{0} say: {1}", friendName, frient.Respond(fiftyFifty.IsUsed, answersOfQuestion));
-                            Thread.Sleep(3000);
+                            Thread.Sleep(3500);
                         }
                         else
                         {

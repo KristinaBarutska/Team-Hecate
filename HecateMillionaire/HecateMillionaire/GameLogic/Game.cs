@@ -15,7 +15,7 @@
     using Questions;
     using HecateExceptions;
     using Common;
-    using Common.Console;   
+    using Common.Console;
     /// <summary>
     /// 1.Start game - method to be called from Main
     //  2.Ask for player's name and color
@@ -106,7 +106,7 @@
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.Black;
-           // Console.WriteLine();
+            // Console.WriteLine();
 
             ConsolePrintText.Print(textForChoice);
             var choice = Console.ReadKey();
@@ -238,13 +238,18 @@
                             Console.Write(ConsoleConstants.SkipeMessage);
                             var skipChoice = Char.Parse(Console.ReadLine());
 
-                            do
+                            while (true)
                             {
+                                if ((skipChoice == 'y' || skipChoice == 'Y') || (skipChoice == 'n' || skipChoice == 'N'))
+                                {
+                                    break;
+                                }
+
                                 Console.WriteLine(ConsoleConstants.InvalidSkipChoice);
                                 Console.Write(ConsoleConstants.SkipeMessage);
                                 skipChoice = Char.Parse(Console.ReadLine());
                             }
-                            while ((skipChoice != 'y' && skipChoice != 'Y') && (skipChoice != 'n' && skipChoice != 'N'));
+
 
                             if (skipChoice == 'y' || skipChoice == 'Y')
                             {
