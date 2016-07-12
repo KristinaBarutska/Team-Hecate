@@ -1,6 +1,6 @@
   CSharp OOP Teamwork Assignment June 2016
  
-  Отбор Hecate
+  <b>Отбор Hecate</b>
   
  Участници в проекта:
  -Станислава Генчева (cyberbox)
