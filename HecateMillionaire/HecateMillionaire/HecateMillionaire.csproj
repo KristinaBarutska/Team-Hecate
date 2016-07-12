@@ -46,11 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Console\ConsolePrintText.cs" />
-    <Compile Include="Common\DisplayTime.cs" />
-    <Compile Include="Common\Console\ConsoleConstants.cs" />
-    <Compile Include="Common\GlobalErrorMessages.cs" />
-    <Compile Include="Common\WordsColorType.cs" />
+    <Compile Include="Players\Common\Console\ConsolePrintText.cs" />
+    <Compile Include="Players\Common\DisplayTime.cs" />
+    <Compile Include="Players\Common\Console\ConsoleConstants.cs" />
+    <Compile Include="Players\Common\GlobalErrorMessages.cs" />
+    <Compile Include="Players\Common\WordsColorType.cs" />
     <Compile Include="GameLogic\Contracts\IGame.cs" />
     <Compile Include="GameLogic\Contracts\ISound.cs" />
     <Compile Include="GameLogic\Game.cs" />

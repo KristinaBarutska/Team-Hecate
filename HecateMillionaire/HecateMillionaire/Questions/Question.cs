@@ -3,7 +3,7 @@
     using System;
     using Contracts;
 
-    public class Question
+    public class Question : IQuestion
     {
         // used for method public static List<Question> InitializeQuestions()
         private string[] answers;
